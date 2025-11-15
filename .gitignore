@@ -1,0 +1,91 @@
+#################################
+###     Java / Maven Build    ###
+#################################
+
+# Maven target folder
+target/
+out/
+
+# Compiled class files
+*.class
+
+# JVM crash logs
+hs_err_pid*
+replay_pid*
+
+#################################
+###        IntelliJ IDEA      ###
+#################################
+
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# JetBrains-specific
+.idea_modules/
+
+#################################
+###        VS Code (Optional)  ###
+#################################
+
+.vscode/
+
+#################################
+###       Spring Boot logs     ###
+#################################
+
+*.log
+logs/
+*.pid
+
+#################################
+###      System / OS files     ###
+#################################
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+#################################
+###         Maven Wrapper      ###
+#################################
+
+mybatis_demo/.mvn/
+!mvnw
+!mvnw.cmd
+
+#################################
+###         Gradle (Optional)  ###
+#################################
+
+.gradle/
+build/
+
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+#################################
+###      Packaging outputs     ###
+#################################
+
+*.jar
+*.war
+*.zip
+*.tar
+*.gz
+
+#################################
+###      Others (Optional)     ###
+#################################
+
+# IDE auto-generated files
+.project
+.classpath
+.settings/
+.factorypath
+
+# User-specific
+*.local
