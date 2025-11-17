@@ -5,11 +5,12 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @Auther: franklin
  * @Date: 2025/11/16
- * @Description:
+ * @Description: 员工信息
  */
 @Data
 @NoArgsConstructor
@@ -30,5 +31,8 @@ public class Emp {
 
     //封装部门名称数
     private String deptName; //部门名称
+
+    //封装员工工作经验
+    private List<EmpExpr> exprList;
 
 }

@@ -1,20 +1,24 @@
 package com.franklin.controller;
 
 import com.franklin.common.Result;
+import com.franklin.dto.EmpQueryParam;
+import com.franklin.entity.Emp;
+import com.franklin.entity.EmpExpr;
 import com.franklin.entity.PageResult;
 import com.franklin.service.EmpService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
+
+import javax.print.attribute.standard.PrinterURI;
+import java.time.LocalDate;
 
 
 /**
  * @Auther: franklin
  * @Date: 2025/11/16
- * @Description: 员工管理
+ * @Description: Employee controller
  */
 @Slf4j
 @RequestMapping("/emps")
@@ -25,15 +29,25 @@ public class EmpController {
     private final EmpService empService;
 
     /**
-     * 获取所有员工信息
-     * @return
+     * 员工列表查询
+     * @return Result<PageResult<Emp>>
      */
     @GetMapping
-    public Result getAll(@RequestParam(defaultValue = "1") Integer page,
-                         @RequestParam(defaultValue = "10") Integer pageSize) {
-        log.info("查询员工信息, page={}, pageSize={}", page, pageSize);
-        PageResult pageResult = empService.page(page, pageSize);
+    public Result<PageResult<Emp>> getAll(EmpQueryParam empQueryParam) {
+        log.info("GET => {}", empQueryParam);
+        PageResult<Emp> pageResult = empService.getAll(empQueryParam);
         return Result.success(pageResult);
+    }
+
+    /**
+     * 添加员工
+     * @return Result<PageResult<Emp>>
+     */
+    @PostMapping
+    public Result<Emp> create(@RequestBody Emp emp) {
+        log.info("请求参数emp: {}", emp);
+        empService.create(emp);
+        return Result.success();
     }
 
 }

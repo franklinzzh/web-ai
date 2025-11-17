@@ -1,17 +1,15 @@
 package com.franklin.entity;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 /**
  * @Auther: franklin
  * @Date: 2025/11/16
- * @Description:
+ * @Description: 员工工作经验
  */
 @Data
-@NoArgsConstructor
 public class EmpExpr {
     private Integer id; //ID
     private Integer empId; //员工ID
