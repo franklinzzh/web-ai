@@ -21,8 +21,16 @@
             </if>
         </where>
     </select>
+
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert into emp(user_name, name, gender, phone, job, salary, image, entry_date, dept_id, create_time, update_time)
         values (#{username},#{name},#{gender},#{phone},#{job},#{salary},#{image},#{entryDate},#{deptId},#{createTime},#{updateTime})
     </insert>
+
+    <delete id="delete">
+        delete from emp where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

@@ -1,4 +1,4 @@
-package com.franklin.common;
+package com.franklin.util;
 
 
 import lombok.Data;

@@ -1,18 +1,15 @@
 package com.franklin.controller;
 
-import com.franklin.common.Result;
+import com.franklin.util.Result;
 import com.franklin.dto.EmpQueryParam;
 import com.franklin.entity.Emp;
-import com.franklin.entity.EmpExpr;
 import com.franklin.entity.PageResult;
 import com.franklin.service.EmpService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-import javax.print.attribute.standard.PrinterURI;
-import java.time.LocalDate;
+import java.util.List;
 
 
 /**
@@ -50,4 +47,15 @@ public class EmpController {
         return Result.success();
     }
 
+    /**
+     * 删除员工
+     * @param ids
+     * @return
+     */
+    @DeleteMapping
+    public Result delete(@RequestParam List<Integer> ids) {
+        log.info("DELETE => {}", ids);
+        empService.delete(ids);
+        return Result.success();
+    }
 }

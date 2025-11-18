@@ -1,6 +1,6 @@
 package com.franklin.controller;
 
-import com.franklin.common.Result;
+import com.franklin.util.Result;
 import com.franklin.entity.Dept;
 import com.franklin.service.DeptService;
 import lombok.extern.slf4j.Slf4j;

@@ -4,6 +4,8 @@ import com.franklin.dto.EmpQueryParam;
 import com.franklin.entity.Emp;
 import com.franklin.entity.PageResult;
 
+import java.util.List;
+
 /**
  * @Auther: franklin
  * @Date: 2025/11/16
@@ -22,4 +24,11 @@ public interface EmpService {
      * @param emp
      */
     void create(Emp emp);
+
+    /**
+     * 删除员工
+     * @param ids
+     * @return
+     */
+    void delete(List<Integer> ids);
 }

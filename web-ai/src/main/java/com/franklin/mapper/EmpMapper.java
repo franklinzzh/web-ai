@@ -31,4 +31,11 @@ public interface EmpMapper {
      * @param emp
      */
     Integer insert(Emp emp);
+
+    /**
+     * 删除员工
+     * @param ids
+     * @return
+     */
+    void delete(List<Integer> ids);
 }
