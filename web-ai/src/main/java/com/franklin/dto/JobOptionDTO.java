@@ -1,0 +1,21 @@
+package com.franklin.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+/**
+ * @Auther: franklin
+ * @Date: 2025/11/19
+ * @Description: Job Data Entity
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class JobOptionDTO {
+    private List<String> jobList;
+    private List<Long> dataList;
+}
+

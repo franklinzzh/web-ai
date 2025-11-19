@@ -17,4 +17,5 @@
             #{empId}
         </foreach>
     </delete>
+
 </mapper>

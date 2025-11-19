@@ -1,5 +1,6 @@
 package com.franklin.controller;
 
+import com.franklin.dto.EmpDto;
 import com.franklin.util.Result;
 import com.franklin.dto.EmpQueryParam;
 import com.franklin.entity.Emp;
@@ -30,9 +31,9 @@ public class EmpController {
      * @return Result<PageResult<Emp>>
      */
     @GetMapping
-    public Result<PageResult<Emp>> getAll(EmpQueryParam empQueryParam) {
+    public Result<PageResult<EmpDto>> getAll(EmpQueryParam empQueryParam) {
         log.info("GET => {}", empQueryParam);
-        PageResult<Emp> pageResult = empService.getAll(empQueryParam);
+        PageResult<EmpDto> pageResult = empService.getAll(empQueryParam);
         return Result.success(pageResult);
     }
 
@@ -41,9 +42,9 @@ public class EmpController {
      * @return Result<PageResult<Emp>>
      */
     @PostMapping
-    public Result<Emp> create(@RequestBody Emp emp) {
-        log.info("请求参数emp: {}", emp);
-        empService.create(emp);
+    public Result<Emp> create(@RequestBody EmpDto empDto) {
+        log.info("请求参数emp: {}", empDto);
+        empService.create(empDto);
         return Result.success();
     }
 
@@ -57,5 +58,28 @@ public class EmpController {
         log.info("DELETE => {}", ids);
         empService.delete(ids);
         return Result.success();
+    }
+
+    /**
+     * 根据Id查询员工
+     * @param id
+     * @return Result<Emp>
+     */
+    @GetMapping("/{id}")
+    public Result<Emp> get(@PathVariable Integer id ) {
+        log.info("GET /emps/{}", id);
+        return empService.get(id);
+    }
+
+    /**
+     * 更新员工信息
+     * @param id
+     * @param empDto
+     * @return Result<Emp>
+     */
+    @PutMapping("/{id}")
+    public Result update(@PathVariable Integer id, @RequestBody EmpDto empDto) {
+        log.info("PUT /emps/{} => updating emp", id);
+        return empService.update(id, empDto);
     }
 }

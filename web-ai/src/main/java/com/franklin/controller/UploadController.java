@@ -45,7 +45,7 @@ public class UploadController {
         // Upload file
         String dirName = "emp/photo/";
         String objectName = dirName + uniqueFileName;
-        String result = aliyunOSSOperator.upload(objectName, image.getInputStream());
-        return Result.success(result);
+        String url = aliyunOSSOperator.upload(objectName, image.getInputStream());
+        return Result.success(url);
     }
 }

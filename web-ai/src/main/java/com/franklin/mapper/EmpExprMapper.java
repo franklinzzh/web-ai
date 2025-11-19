@@ -14,15 +14,16 @@ import java.util.List;
 public interface EmpExprMapper {
 
     /**
-     * insert emp work experiences
+     * INTERT emp work experiences
      * @param exprList
      */
     void insertBatch(List<EmpExpr> exprList);
 
     /**
-     * 删除员工
+     * DELETE emp work experiences
      * @param empIds
      * @return
      */
     void delete(List<Integer> empIds);
+
 }

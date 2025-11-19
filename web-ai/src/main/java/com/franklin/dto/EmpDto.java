@@ -1,10 +1,12 @@
-package com.franklin.entity;
+package com.franklin.dto;
 
+import com.franklin.entity.EmpExpr;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @Auther: franklin
@@ -13,7 +15,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @NoArgsConstructor
-public class Emp {
+public class EmpDto {
     private Integer id; //ID,主键
     private String username; //用户名
     private String password; //密码
@@ -28,4 +30,11 @@ public class Emp {
     private LocalDateTime createTime; //创建时间
     private LocalDateTime updateTime; //修改时间
 
+    //封装部门名称数
+    private String deptName; //部门名称
+
+    //封装员工工作经验
+    private List<EmpExpr> exprList;
+
 }
+

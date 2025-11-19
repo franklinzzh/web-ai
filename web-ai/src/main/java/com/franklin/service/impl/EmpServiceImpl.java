@@ -1,5 +1,6 @@
 package com.franklin.service.impl;
 
+import com.franklin.dto.EmpDto;
 import com.franklin.dto.EmpQueryParam;
 import com.franklin.entity.Emp;
 import com.franklin.entity.EmpExpr;
@@ -7,6 +8,7 @@ import com.franklin.entity.PageResult;
 import com.franklin.mapper.EmpExprMapper;
 import com.franklin.mapper.EmpMapper;
 import com.franklin.service.EmpService;
+import com.franklin.util.Result;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
@@ -36,34 +38,70 @@ public class EmpServiceImpl implements EmpService {
         PageHelper.startPage(empQueryParam.getPage(), empQueryParam.getPageSize());
 
         //2. 执行查询
-        List<Emp> empList =  empMapper.getAll(empQueryParam);
-        PageInfo<Emp> pageInfo = new PageInfo<>(empList);
+        List<EmpDto> empList =  empMapper.getAll(empQueryParam);
+        PageInfo<EmpDto> pageInfo = new PageInfo<>(empList);
         //3. 封装结果
         return new PageResult<>(pageInfo.getTotal(), pageInfo.getList());
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void create(Emp emp) {
+    public void create(EmpDto empDto) {
         //fill basic info
-        emp.setCreateTime(LocalDateTime.now());
-        emp.setUpdateTime(LocalDateTime.now());
+        empDto.setCreateTime(LocalDateTime.now());
+        empDto.setUpdateTime(LocalDateTime.now());
         // create emp data
-        Integer id = empMapper.insert(emp);
+        Integer id = empMapper.insert(empDto);
 
-        int i = 1/0;
         // create emp experience data - in batch
-        List<EmpExpr> exprList = emp.getExprList();
+        List<EmpExpr> exprList = empDto.getExprList();
         if (!CollectionUtils.isEmpty(exprList)) {
             exprList.forEach(empExpr ->  empExpr.setEmpId(id));
             empExprMapper.insertBatch(exprList);
         }
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void delete(List<Integer> ids) {
         empMapper.delete(ids);
         empExprMapper.delete(ids);
+    }
+
+    @Override
+    public Result get(Integer id) {
+        EmpDto empDto = empMapper.select(id);
+        if (empDto == null) {
+            return Result.error("No emp found with id: " + id);
+        }
+        return Result.success(empDto);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Result update(Integer id, EmpDto empDto) {
+        //1. error check
+        EmpDto empDB = empMapper.select(id);
+        if (empDB == null) {
+            return Result.error("No emp found with id: " + id);
+        }
+        //forcely set the id, json data could be modified
+        empDto.setId(id);
+
+        //2. update emp data
+        empDto.setUpdateTime(LocalDateTime.now());
+        empMapper.update(empDto);
+
+        //3. update emp_expr data
+        //delete old experience
+        empExprMapper.delete(List.of(empDto.getId()));
+        //insert updated experience
+        List<EmpExpr> empExprList = empDto.getExprList();
+        if (!CollectionUtils.isEmpty(empExprList)) {
+            empExprList.forEach(empExpr -> empExpr.setId(id));
+            empExprMapper.insertBatch(empExprList);
+        }
+        //4. return result
+        return Result.success();
     }
 }
