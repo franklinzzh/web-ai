@@ -1,7 +1,10 @@
 package com.franklin.service;
 
 
+import com.franklin.dto.GenderOptionDTO;
 import com.franklin.dto.JobOptionDTO;
+
+import java.util.List;
 
 /**
  * @Auther: franklin
@@ -10,7 +13,14 @@ import com.franklin.dto.JobOptionDTO;
  */
 public interface ReportService {
     /**
-     * Emp job data count
+     * Emp job data
+     * @return JobOptionDTO
      */
     JobOptionDTO getEmpJobData();
+
+    /**
+     * Emp Gender Data
+     * @return List<GenderOptionDTO>
+     */
+    List<GenderOptionDTO> getEmpGenderData();
 }

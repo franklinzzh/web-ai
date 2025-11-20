@@ -1,5 +1,6 @@
 package com.franklin.service.impl;
 
+import com.franklin.dto.GenderOptionDTO;
 import com.franklin.dto.JobOptionDTO;
 import com.franklin.mapper.ReportMapper;
 import com.franklin.service.ReportService;
@@ -23,13 +24,19 @@ public class ReportServiceImpl implements ReportService {
     private final ReportMapper reportMapper;
 
     /**
-     * Emp job data count
+     * Emp job data
+     * @return JobOptionDTO
      */
     public JobOptionDTO getEmpJobData() {
         List<Map<String, Object>> empJobData = reportMapper.getEmpJobData();
         List<String> jobList = empJobData.stream().map(row -> (String)row.get("pos")).toList();
         List<Long> dataList = empJobData.stream().map(row -> (Long)row.get("num")).toList();
         return new JobOptionDTO(jobList, dataList);
+    }
+
+    public List<GenderOptionDTO> getEmpGenderData() {
+        List<GenderOptionDTO> genderDataList = reportMapper.getEmpGenderData();
+        return genderDataList;
     }
 
 }

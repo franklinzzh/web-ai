@@ -38,11 +38,17 @@ public class EmpServiceImpl implements EmpService {
         PageHelper.startPage(empQueryParam.getPage(), empQueryParam.getPageSize());
 
         //2. 执行查询
-        List<EmpDto> empList =  empMapper.getAll(empQueryParam);
+        List<EmpDto> empList =  empMapper.getAllPaged(empQueryParam);
         PageInfo<EmpDto> pageInfo = new PageInfo<>(empList);
         //3. 封装结果
         return new PageResult<>(pageInfo.getTotal(), pageInfo.getList());
     }
+
+    @Override
+    public List<Emp> getAll() {
+        return empMapper.getAll();
+    }
+
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -69,12 +75,8 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
-    public Result get(Integer id) {
-        EmpDto empDto = empMapper.select(id);
-        if (empDto == null) {
-            return Result.error("No emp found with id: " + id);
-        }
-        return Result.success(empDto);
+    public EmpDto get(Integer id) {
+        return empMapper.select(id);
     }
 
     @Transactional(rollbackFor = Exception.class)

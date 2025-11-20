@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.franklin.mapper.EmpMapper">
-    <select id="getAll" resultType="com.franklin.dto.EmpDto">
+    <select id="getAllPaged" resultType="com.franklin.dto.EmpDto">
         select e.*, d.name deptName
         from emp as e left join dept as d on e.dept_id = d.id
         <where>
@@ -20,6 +20,10 @@
                 AND e.entry_date &lt;= #{end}
             </if>
         </where>
+    </select>
+
+    <select id="getAll" resultType="com.franklin.entity.Emp">
+        select * from emp
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">

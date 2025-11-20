@@ -27,7 +27,7 @@ public class EmpController {
     private final EmpService empService;
 
     /**
-     * 员工列表查询
+     * GET -- all Employees - PageHelper
      * @return Result<PageResult<Emp>>
      */
     @GetMapping
@@ -35,6 +35,17 @@ public class EmpController {
         log.info("GET => {}", empQueryParam);
         PageResult<EmpDto> pageResult = empService.getAll(empQueryParam);
         return Result.success(pageResult);
+    }
+
+    /**
+     * GET -- all Employees
+     * @return
+     */
+    @GetMapping("/all")
+    public Result<List<Emp>> getAll() {
+        log.info("GET => all employees");
+        List<Emp> empList = empService.getAll();
+        return Result.success(empList);
     }
 
     /**
@@ -66,9 +77,13 @@ public class EmpController {
      * @return Result<Emp>
      */
     @GetMapping("/{id}")
-    public Result<Emp> get(@PathVariable Integer id ) {
+    public Result<EmpDto> get(@PathVariable Integer id ) {
         log.info("GET /emps/{}", id);
-        return empService.get(id);
+        EmpDto empDto = empService.get(id);
+        if (empDto == null) {
+            return Result.error("No emp found with id: " + id);
+        }
+        return Result.success(empDto);
     }
 
     /**

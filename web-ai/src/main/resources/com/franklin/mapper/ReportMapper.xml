@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.franklin.mapper.ReportMapper">
+    <!--SELECT Emp Job Data-->
     <select id="getEmpJobData" resultType="java.util.Map">
         select (case job when 1 then '班主任'
             when 2 then '讲师'
@@ -15,4 +16,16 @@
         group by job
         order by num
     </select>
+
+    <!--SELECT Emp Gender Data-->
+    <select id="getEmpGenderData" resultType="com.franklin.dto.GenderOptionDTO">
+        select (case gender when 1 then '男性员工'
+                            when 2 then '女性员工'
+                            else '未知' end) as name,
+                count(*) as value
+        from emp
+        group by gender
+        order by value
+    </select>
+
 </mapper>

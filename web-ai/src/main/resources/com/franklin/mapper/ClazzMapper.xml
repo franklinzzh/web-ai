@@ -1,0 +1,48 @@
+<!--定义Mapper映射文件的约束和基本结构-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.franklin.mapper.ClazzMapper">
+    <select id="getAll" resultType="com.franklin.dto.ClazzDTO">
+        select c.*, e.name as masterName,
+               case
+                    when c.end_date &lt; NOW() then '已结课'
+                    when c.begin_date &gt; NOW() then '未开班'
+                    else '在读中'
+               end as status
+        from clazz c left join emp e on c.master_id = e.id
+        <where>
+            <if test="name! = null and name != ''">c.name like concat('%', #{name}, '%')</if>
+            <if test="begin != null and end != null"> and end_date between #{begin} and #{end}</if>
+        </where>
+    </select>
+
+    <insert id="create">
+        insert into clazz(name, room, begin_date, end_date, master_id, subject)
+        values (#{name}, #{room}, #{beginDate}, #{endDate}, #{masterId}, #{subject})
+    </insert>
+
+    <delete id="delete">
+        delete from clazz
+        where id = #{id}
+    </delete>
+
+    <select id="get" resultType="com.franklin.dto.ClazzDTO">
+        select * from clazz
+        where id = #{id}
+    </select>
+
+    <update id="update">
+        update clazz
+        <set>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="room != null and room != ''">room = #{room},</if>
+            <if test="beginDate != null">begin_date = #{beginDate},</if>
+            <if test="endDate != null">end_date = #{endDate},</if>
+            <if test="masterId != null">master_id = #{masterId},</if>
+            <if test="subject != null">subject = #{subject},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

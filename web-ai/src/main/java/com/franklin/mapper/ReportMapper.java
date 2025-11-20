@@ -1,5 +1,6 @@
 package com.franklin.mapper;
 
+import com.franklin.dto.GenderOptionDTO;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,6 +15,13 @@ import java.util.Map;
 @Mapper
 public interface ReportMapper {
 
+    /**
+     *
+     * @return List<Map<String, Object>>
+     */
     @MapKey("pos")
     List<Map<String, Object>> getEmpJobData();
+
+
+    List<GenderOptionDTO> getEmpGenderData();
 }

@@ -16,11 +16,16 @@ import java.util.List;
 public interface EmpService {
 
     /**
-     * 员工列表查询
-     * @return List<Emp>
+     * Get all employees - PageHelper
+     * @return a pagination result including total employee numbers and employee data
      */
     PageResult<EmpDto> getAll(EmpQueryParam empQueryParam);
 
+    /**
+     * Get all employees
+     * @return List of all employees
+     */
+    List<Emp> getAll();
     /**
      * 添加员工
      * @param empDto
@@ -39,7 +44,7 @@ public interface EmpService {
      * @param id
      * @return Emp
      */
-    Result get(Integer id);
+    EmpDto get(Integer id);
 
     /**
      * 更新员工信息

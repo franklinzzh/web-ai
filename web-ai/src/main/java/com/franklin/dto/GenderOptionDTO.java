@@ -8,14 +8,13 @@ import java.util.List;
 
 /**
  * @Auther: franklin
- * @Date: 2025/11/19
- * @Description: Job Data DTO
+ * @Date: 2025/11/20
+ * @Description: Gender Data DTO
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class JobOptionDTO {
-    private List<String> jobList;
-    private List<Long> dataList;
+public class GenderOptionDTO {
+    private String name;
+    private Long value;
 }
-

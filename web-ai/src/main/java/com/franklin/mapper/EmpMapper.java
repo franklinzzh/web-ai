@@ -19,13 +19,19 @@ import java.util.List;
 public interface EmpMapper {
 
     /**
-     * 员工列表查询
+     * Get all employees data - PageHelper
      * @param empQueryParam
-     * @return
+     * @return a list of paginated employee data
      */
     //-- 查询 !所有的! 员工信息，如果员工关联了部门，也要查询出部门名称
     // 注意修改返回 column 名称为 entity 的对应名称 "deptName"
-    List<EmpDto> getAll(EmpQueryParam empQueryParam);
+    List<EmpDto> getAllPaged(EmpQueryParam empQueryParam);
+
+    /**
+     * Get all employees data
+     * @return a list of paginated employee data
+     */
+    List<Emp> getAll();
 
     /**
      * 添加员工
