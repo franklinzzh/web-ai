@@ -1,7 +1,7 @@
 package com.franklin.controller;
 
 import com.aliyuncs.exceptions.ClientException;
-import com.franklin.service.impl.AliyunOSSOperator;
+import com.franklin.service.AliyunOSSService;
 import com.franklin.util.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,17 +16,14 @@ import java.util.UUID;
 /**
  * @Auther: franklin
  * @Date: 2025/11/18
- * @Description:
+ * @Description: File upload controller
  */
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 public class UploadController {
 
-    // Save path (absolute path)
-    private static final String uploadDir = "/Users/franklin/Desktop/Upload/";
-
-    private final AliyunOSSOperator aliyunOSSOperator;
+    private final AliyunOSSService aliyunOSSService;
 
     /**
      * 上传文件
@@ -41,11 +38,10 @@ public class UploadController {
         String originalFileName = image.getOriginalFilename();
         String extName = originalFileName.substring(originalFileName.lastIndexOf("."));
         String uniqueFileName = "img-" + username + "-" + UUID.randomUUID().toString().replace("-", "") + extName;
-        System.out.println(uploadDir + uniqueFileName);
         // Upload file
         String dirName = "emp/photo/";
         String objectName = dirName + uniqueFileName;
-        String url = aliyunOSSOperator.upload(objectName, image.getInputStream());
+        String url = aliyunOSSService.upload(objectName, image.getInputStream());
         return Result.success(url);
     }
 }

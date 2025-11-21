@@ -5,16 +5,16 @@ import com.aliyun.oss.common.auth.*;
 import com.aliyun.oss.common.comm.SignVersion;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
+import com.franklin.service.AliyunOSSService;
 import com.franklin.util.AliyunOSSProperties;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 
 @Service
 @RequiredArgsConstructor
-public class AliyunOSSOperator {
+public class AliyunOSSServiceImpl implements AliyunOSSService {
 
     private final AliyunOSSProperties aliyunOSSProperties;
 
@@ -36,7 +36,6 @@ public class AliyunOSSOperator {
                 .clientConfiguration(clientBuilderConfiguration)
                 .region(region)
                 .build();
-
         try {
             // 创建PutObjectRequest对象。
             PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, objectName, inputStream);

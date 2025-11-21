@@ -1,5 +1,6 @@
 package com.franklin.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,6 +22,7 @@ public class ClazzQueryParamDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate end;
     // Pagination Default
+
     private Integer page = 1;
     private Integer pageSize = 10;
 }

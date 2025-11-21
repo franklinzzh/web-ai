@@ -1,8 +1,10 @@
 package com.franklin.mapper;
 
+import com.franklin.dto.ClazzCreateDTO;
 import com.franklin.dto.ClazzDTO;
 import com.franklin.dto.ClazzQueryParamDTO;
-import com.franklin.entity.PageResult;
+import com.franklin.dto.ClazzUpdateDTO;
+import com.franklin.entity.Clazz;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -20,13 +22,13 @@ public interface ClazzMapper {
      * @param clazzQueryParamDTO
      * @return
      */
-    List<ClazzDTO> getAll(ClazzQueryParamDTO clazzQueryParamDTO);
+    List<ClazzDTO> getPage(ClazzQueryParamDTO clazzQueryParamDTO);
 
     /**
      * create class in database
-     * @param clazzDTO
+     * @param dto
      */
-    void create(ClazzDTO clazzDTO);
+    void create(ClazzCreateDTO dto);
 
     /**
      * Delete class data by id
@@ -43,7 +45,22 @@ public interface ClazzMapper {
 
     /**
      * Update class data by id
-     * @param clazzDTO
+     * @param dto
      */
-    void update(ClazzDTO clazzDTO);
+    void update(ClazzUpdateDTO dto);
+
+    /**
+     * Get all class data
+     */
+    List<ClazzDTO> getAll();
+
+    /**
+     * find name exist in class or not
+     * @param name
+     * @return exist name: true
+     *         not exist name : false
+     */
+    Boolean existsByName(String name);
+
+    Boolean existsById(Integer id);
 }

@@ -1,10 +1,13 @@
 package com.franklin.controller;
 
+import com.franklin.dto.ClazzCreateDTO;
 import com.franklin.dto.ClazzDTO;
 import com.franklin.dto.ClazzQueryParamDTO;
+import com.franklin.dto.ClazzUpdateDTO;
 import com.franklin.entity.PageResult;
 import com.franklin.service.ClazzService;
 import com.franklin.util.Result;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -30,15 +33,17 @@ public class ClazzController {
      * @return
      */
     @GetMapping
-    public Result<PageResult<ClazzDTO>> getAll(ClazzQueryParamDTO clazzQueryParamDTO) {
-        log.info("GET -- All users based on queryString");
-        return Result.success(clazzService.getAll(clazzQueryParamDTO));
+    public Result<PageResult<ClazzDTO>> getPage(ClazzQueryParamDTO clazzQueryParamDTO) {
+        log.info("GET /clazzs?page={}&pageSize={} - Fetch paginated class list",
+                clazzQueryParamDTO.getPage(),
+                clazzQueryParamDTO.getPageSize());
+        return Result.success(clazzService.getPage(clazzQueryParamDTO));
     }
 
     @PostMapping
-    public Result create(@RequestBody ClazzDTO clazzDTO) {
-        log.info("POST => create class with id {}", clazzDTO.getId());
-        clazzService.create(clazzDTO);
+    public Result create(@Valid @RequestBody ClazzCreateDTO dto) {
+        log.info("POST /clazzs - create new class with name: {}", dto.getName());
+        clazzService.create(dto);
         return Result.success();
     }
 
@@ -49,7 +54,7 @@ public class ClazzController {
      */
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
-        log.info("DELETE => /clazzs/{}", id);
+        log.info("[DELETE] - request id={}", id);
         clazzService.delete(id);
         return Result.success();
     }
@@ -61,20 +66,27 @@ public class ClazzController {
      */
     @GetMapping("/{id}")
     public Result<ClazzDTO> get(@PathVariable Integer id) {
-        log.info("GET => class data id {}", id);
+        log.info("[GET] - request id={}", id);
         return Result.success(clazzService.get(id));
     }
 
     /**
      * PUT -- Update class data
-     * @param clazzDTO
+     * @param dto
      * @return
      */
     @PutMapping
-    public Result update(@RequestBody ClazzDTO clazzDTO) {
-        log.info("PUT => update class data");
-        clazzService.update(clazzDTO);
+    public Result update(@RequestBody ClazzUpdateDTO dto) {
+        log.info("[PUT] - request body: {}", dto);
+        clazzService.update(dto);
         return Result.success();
+    }
+
+    @GetMapping("/all")
+    public Result getAll() {
+        log.info("GET /clazzs - Fetch all class data");
+        List<ClazzDTO> clazzDTOList = clazzService.getAll();
+        return Result.success(clazzDTOList);
     }
 
 }

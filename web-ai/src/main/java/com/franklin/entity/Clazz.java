@@ -1,4 +1,4 @@
-package com.franklin.dto;
+package com.franklin.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,13 +9,13 @@ import java.time.LocalDateTime;
 
 /**
  * @Auther: franklin
- * @Date: 2025/11/20
- * @Description: Clazz DTO
+ * @Date: 2025/11/21
+ * @Description:
  */
 @Data
 @NoArgsConstructor
-public class ClazzDTO {
-
+@AllArgsConstructor
+public class Clazz {
     private Integer id; //ID
     private String name; //班级名称
     private String room; //班级教室
@@ -25,7 +25,4 @@ public class ClazzDTO {
     private Integer subject; //学科
     private LocalDateTime createTime; //创建时间
     private LocalDateTime updateTime; //修改时间
-
-    private String masterName; //班主任姓名
-    private String status; //班级状态 - 未开班 , 在读 , 已结课
 }

@@ -1,6 +1,7 @@
 package com.franklin.dto;
 
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,23 +10,32 @@ import java.time.LocalDateTime;
 
 /**
  * @Auther: franklin
- * @Date: 2025/11/20
- * @Description: Clazz DTO
+ * @Date: 2025/11/21
+ * @Description: Clazz DTO fro Update
  */
 @Data
 @NoArgsConstructor
-public class ClazzDTO {
+public class ClazzUpdateDTO {
 
+    @NotNull(message = "ID is required")
     private Integer id; //ID
-    private String name; //班级名称
-    private String room; //班级教室
-    private LocalDate beginDate; //开课时间
-    private LocalDate endDate; //结课时间
-    private Integer masterId; //班主任
-    private Integer subject; //学科
-    private LocalDateTime createTime; //创建时间
-    private LocalDateTime updateTime; //修改时间
 
-    private String masterName; //班主任姓名
-    private String status; //班级状态 - 未开班 , 在读 , 已结课
+    @NotEmpty(message = "name is required")
+    private String name; //班级名称
+
+    @NotEmpty(message = "room is required")
+    private String room; //班级教室
+
+    @NotNull(message = "beginDate is required")
+    private LocalDate beginDate; //开课时间
+
+    @NotNull(message = "endDate is required")
+    private LocalDate endDate; //结课时间
+
+    @NotNull(message = "masterId is required")
+    private Integer masterId; //班主任
+
+    // Optional
+    private Integer subject; //学科
+
 }

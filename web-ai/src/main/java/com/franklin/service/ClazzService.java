@@ -1,8 +1,12 @@
 package com.franklin.service;
 
+import com.franklin.dto.ClazzCreateDTO;
 import com.franklin.dto.ClazzDTO;
 import com.franklin.dto.ClazzQueryParamDTO;
+import com.franklin.dto.ClazzUpdateDTO;
 import com.franklin.entity.PageResult;
+
+import java.util.List;
 
 /**
  * @Auther: franklin
@@ -12,17 +16,17 @@ import com.franklin.entity.PageResult;
 public interface ClazzService {
 
     /**
-     * all class data in pages
+     * Get class data in pages
      * @param clazzQueryParamDTO
      * @return
      */
-    PageResult<ClazzDTO> getAll(ClazzQueryParamDTO clazzQueryParamDTO);
+    PageResult<ClazzDTO> getPage(ClazzQueryParamDTO clazzQueryParamDTO);
 
     /**
-     * Create class
-     * @param clazzDTO
+     * Create new class
+     * @param clazzCreateDTO
      */
-    void create(ClazzDTO clazzDTO);
+    void create(ClazzCreateDTO clazzCreateDTO);
 
     /**
      * Delete class by id
@@ -39,7 +43,26 @@ public interface ClazzService {
 
     /**
      * Update class data
-     * @param clazzDTO
+     * @param dto
      */
-    void update(ClazzDTO clazzDTO);
+    void update(ClazzUpdateDTO dto);
+
+    /**
+     * Get all class data
+     */
+    List<ClazzDTO> getAll();
+
+    /**
+     * Check existence of name
+     * @param name
+     * @return
+     */
+    boolean existsByName(String name);
+
+    /**
+     * Check existence of id
+     * @param id
+     * @return
+     */
+    boolean existsById(Integer id);
 }

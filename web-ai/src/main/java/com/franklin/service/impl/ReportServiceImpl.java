@@ -23,10 +23,7 @@ public class ReportServiceImpl implements ReportService {
 
     private final ReportMapper reportMapper;
 
-    /**
-     * Emp job data
-     * @return JobOptionDTO
-     */
+    @Override
     public JobOptionDTO getEmpJobData() {
         List<Map<String, Object>> empJobData = reportMapper.getEmpJobData();
         List<String> jobList = empJobData.stream().map(row -> (String)row.get("pos")).toList();
@@ -34,6 +31,7 @@ public class ReportServiceImpl implements ReportService {
         return new JobOptionDTO(jobList, dataList);
     }
 
+    @Override
     public List<GenderOptionDTO> getEmpGenderData() {
         List<GenderOptionDTO> genderDataList = reportMapper.getEmpGenderData();
         return genderDataList;

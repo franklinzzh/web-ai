@@ -1,6 +1,7 @@
 package com.franklin.exception;
 
 import com.franklin.util.Result;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -26,6 +27,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BusinessException.class)
     public Result handleBusiness(BusinessException e) {
         return Result.error(e.getMessage());
+    }
+
+    /** Handle @Valid DTO validation errors */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Result handleValidation(MethodArgumentNotValidException ex) {
+        String errorMessage = ex.getBindingResult()
+                .getFieldError()
+                .getDefaultMessage(); // this is your @NotNull message
+
+        return Result.error(errorMessage);
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)

@@ -32,6 +32,7 @@ public class DeptServiceImpl implements DeptService {
         return dept;
     }
 
+    @Override
     public void create(Dept dept) {
         dept.setCreateTime(LocalDateTime.now());
         dept.setUpdateTime(LocalDateTime.now());
