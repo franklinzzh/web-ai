@@ -1,16 +1,19 @@
-package com.franklin.dto;
+package com.franklin.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @Auther: franklin
- * @Date: 2025/11/20
- * @Description: Student DTO
+ * @Date: 2025/11/21
+ * @Description:
  */
 @Data
-public class StudentDTO {
+@NoArgsConstructor
+public class Student {
     private Integer id; //ID
     private String name; //姓名
     private String no; //序号
@@ -24,6 +27,6 @@ public class StudentDTO {
     private Integer clazzId; //班级ID
     private Short violationCount; //违纪次数
     private Short violationScore; //违纪扣分
-
-    private String clazzName;//班级名称
+    private LocalDateTime createTime; //创建时间
+    private LocalDateTime updateTime; //修改时间
 }

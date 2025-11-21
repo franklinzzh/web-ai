@@ -48,9 +48,9 @@ public interface ClazzService {
     void update(ClazzUpdateDTO dto);
 
     /**
-     * Get all class data
+     * Get all class name as a list
      */
-    List<ClazzDTO> getAll();
+    List<String> getList();
 
     /**
      * Check existence of name
@@ -65,4 +65,5 @@ public interface ClazzService {
      * @return
      */
     boolean existsById(Integer id);
+
 }

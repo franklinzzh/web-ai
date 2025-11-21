@@ -60,7 +60,7 @@ public class ClazzController {
     }
 
     /**
-     * GET -- class data by Id
+     * GET -- Fetch class data by Id
      * @param id
      * @return Result of Class data
      */
@@ -76,17 +76,21 @@ public class ClazzController {
      * @return
      */
     @PutMapping
-    public Result update(@RequestBody ClazzUpdateDTO dto) {
+    public Result update(@Valid @RequestBody ClazzUpdateDTO dto) {
         log.info("[PUT] - request body: {}", dto);
         clazzService.update(dto);
         return Result.success();
     }
 
-    @GetMapping("/all")
-    public Result getAll() {
+    /**
+     * GET -- Fetch all class name as a list
+     * @return
+     */
+    @GetMapping("/list")
+    public Result<List<String>> getList() {
         log.info("GET /clazzs - Fetch all class data");
-        List<ClazzDTO> clazzDTOList = clazzService.getAll();
-        return Result.success(clazzDTOList);
+        List<String> clazzList = clazzService.getList();
+        return Result.success(clazzList);
     }
 
 }

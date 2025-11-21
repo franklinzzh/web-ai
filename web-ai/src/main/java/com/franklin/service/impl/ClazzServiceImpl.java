@@ -9,6 +9,7 @@ import com.franklin.exception.BusinessException;
 import com.franklin.mapper.ClazzMapper;
 import com.franklin.service.ClazzService;
 import com.franklin.service.EmpService;
+import com.franklin.service.StudentService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,8 @@ public class ClazzServiceImpl implements ClazzService {
 
     private final EmpService empService;
 
+    private final StudentService studentService;
+
     @Override
     public PageResult<ClazzDTO> getPage(ClazzQueryParamDTO clazzQueryParamDTO) {
         //设置分页参数 - PageHelper 自动拦截 query 增加 limit
@@ -37,7 +40,7 @@ public class ClazzServiceImpl implements ClazzService {
         List<ClazzDTO> clazzDTOList = clazzMapper.getPage(clazzQueryParamDTO);
         PageInfo<ClazzDTO> pageInfo = new PageInfo<>(clazzDTOList);
         //封装结果
-        return new PageResult<>(pageInfo.getTotal(), pageInfo.getList() );
+        return new PageResult<>(pageInfo.getTotal(), pageInfo.getList());
     }
 
     @Override
@@ -56,13 +59,20 @@ public class ClazzServiceImpl implements ClazzService {
     @Override
     public void delete(Integer id) {
         //if there are students under this id's class, cannot delete it
-
-
+        if (studentService.existsByClazzId(id)) {
+            throw new BusinessException("Class still has students, cannot be deleted");
+        }
+        if (!this.existsById(id)) {
+            throw new BusinessException("Class ID not found");
+        }
         clazzMapper.delete(id);
     }
 
     @Override
     public ClazzDTO get(Integer id) {
+        if (!this.existsById(id)) {
+            throw new BusinessException("Class ID not found");
+        }
         return clazzMapper.get(id);
     }
 
@@ -91,8 +101,8 @@ public class ClazzServiceImpl implements ClazzService {
     }
 
     @Override
-    public List<ClazzDTO> getAll() {
-        return clazzMapper.getAll();
+    public List<String> getList() {
+        return clazzMapper.getList();
     }
 
     @Override
@@ -104,5 +114,6 @@ public class ClazzServiceImpl implements ClazzService {
     public boolean existsById(Integer id) {
         return clazzMapper.existsById(id);
     }
+
 
 }

@@ -1,13 +1,11 @@
-package com.franklin.service;
+package com.franklin.mapper;
 
 import com.franklin.dto.StudentCreateDTO;
 import com.franklin.dto.StudentQueryParamDTO;
 import com.franklin.dto.StudentUpdateDTO;
-import com.franklin.entity.PageResult;
 import com.franklin.entity.Student;
 import com.franklin.util.Result;
-import com.github.pagehelper.Page;
-import jakarta.validation.Valid;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -16,20 +14,21 @@ import java.util.List;
  * @Date: 2025/11/21
  * @Description:
  */
-public interface StudentService {
+@Mapper
+public interface StudentMapper {
 
     /**
      * Fetch paginated student list with filters
      * @param param
-     * @return a list of students
+     * @return
      */
-    PageResult<Student> getPage(StudentQueryParamDTO param);
+    List<Student> getPage(StudentQueryParamDTO param);
 
     /**
      * create student
      * @param createDTO
      */
-    void create(@Valid StudentCreateDTO createDTO);
+    void create(StudentCreateDTO createDTO);
 
     /**
      * Fetch student by ID
@@ -45,11 +44,11 @@ public interface StudentService {
     void update(StudentUpdateDTO updateDTO);
 
     /**
-     * Check if class id has students
-     * @param id
+     * Check if a class has students
+     * @param clazzId
      * @return
      */
-    boolean existsByClazzId(Integer id);
+    boolean existsByClazzId(Integer clazzId);
 
     /**
      * Check if name is unique in student
@@ -71,4 +70,5 @@ public interface StudentService {
      * @return
      */
     String getName(Integer id);
+
 }

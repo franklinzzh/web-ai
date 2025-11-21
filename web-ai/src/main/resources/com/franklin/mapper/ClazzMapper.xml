@@ -46,8 +46,8 @@
         where id = #{id}
     </update>
 
-    <select id="getAll" resultType="com.franklin.dto.ClazzDTO">
-        select * from clazz
+    <select id="getList" resultType="java.lang.String">
+        select name from clazz
     </select>
 
     <select id="existsByName" resultType="java.lang.Boolean">
