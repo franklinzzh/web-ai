@@ -2,6 +2,8 @@ package com.franklin.service.impl;
 
 import com.franklin.dto.GenderOptionDTO;
 import com.franklin.dto.JobOptionDTO;
+import com.franklin.dto.StudentCountDTO;
+import com.franklin.dto.StudentDegreeDTO;
 import com.franklin.mapper.ReportMapper;
 import com.franklin.service.ReportService;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +37,19 @@ public class ReportServiceImpl implements ReportService {
     public List<GenderOptionDTO> getEmpGenderData() {
         List<GenderOptionDTO> genderDataList = reportMapper.getEmpGenderData();
         return genderDataList;
+    }
+
+    @Override
+    public StudentCountDTO fetchStudentCount() {
+        List<Map<String, Object>> studentData = reportMapper.fetchStudentCount();
+        List<String> clazzList = studentData.stream().map(row -> (String)row.get("name")).toList();
+        List<Long> dataList = studentData.stream().map(row -> (Long)row.get("num")).toList();
+        return new StudentCountDTO(clazzList, dataList);
+    }
+
+    @Override
+    public List<StudentDegreeDTO> fetchStudentDegree() {
+        return reportMapper.fetchStudentDegree();
     }
 
 }

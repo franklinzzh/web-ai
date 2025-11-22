@@ -95,4 +95,10 @@
         </set>
         where id = #{id}
     </update>
+
+    <!--Helper Method-->
+    <select id="existsByDeptId" resultType="java.lang.Boolean">
+        select exists(
+            select 1 from emp where dept_id = #{deptId})
+    </select>
 </mapper>

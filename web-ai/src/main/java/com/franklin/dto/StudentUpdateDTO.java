@@ -3,6 +3,7 @@ package com.franklin.dto;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -45,5 +46,6 @@ public class StudentUpdateDTO {
     private String idCard; //身份证号
     private Integer isCollege; //是否来自于院校, 1: 是, 0: 否
     private String address; //联系地址
+    @DateTimeFormat(pattern = ("yyyy-MM-dd"))
     private LocalDate graduationDate; //毕业时间
 }

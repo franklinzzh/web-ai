@@ -106,4 +106,9 @@ public class EmpServiceImpl implements EmpService {
         //4. return result
         return Result.success();
     }
+
+    @Override
+    public boolean existsByDeptId(Integer deptId) {
+        return empMapper.existsByDeptId(deptId);
+    }
 }

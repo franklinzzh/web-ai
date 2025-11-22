@@ -1,5 +1,6 @@
 package com.franklin.service;
 
+import com.franklin.dto.DeptDTO;
 import com.franklin.entity.Dept;
 
 import java.util.List;
@@ -12,33 +13,34 @@ import java.util.List;
 public interface DeptService {
     /**
      * 返回所有dept数据
-     * @return List<Dept>
+     * @return a list of Dept
      */
-    List<Dept> getAll();
+    List<DeptDTO> getAll();
 
     /**
      * 根据id删除指定dept
      * @param id
      * @return dept
      */
-    Dept delete(Integer id);
+    void delete(Integer id);
 
     /**
      * 根据数据增加指定部门
-     * @param dept
+     * @param deptDto
      */
-    void create(Dept dept);
+    void create(DeptDTO deptDto);
 
     /**
      * 根据id查询指定部门
      * @param id
      * @return dept
      */
-    Dept get(Integer id);
+    DeptDTO get(Integer id);
 
     /**
      * 更新指定部门
-     * @param dept
+     * @param deptDto
      */
-    void update(Dept dept);
+    void update(DeptDTO deptDto);
+
 }

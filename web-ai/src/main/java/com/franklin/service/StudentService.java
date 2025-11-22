@@ -5,8 +5,6 @@ import com.franklin.dto.StudentQueryParamDTO;
 import com.franklin.dto.StudentUpdateDTO;
 import com.franklin.entity.PageResult;
 import com.franklin.entity.Student;
-import com.franklin.util.Result;
-import com.github.pagehelper.Page;
 import jakarta.validation.Valid;
 
 import java.util.List;
@@ -45,6 +43,19 @@ public interface StudentService {
     void update(StudentUpdateDTO updateDTO);
 
     /**
+     * Delete student by ID
+     * @param id
+     */
+    void delete(Integer id);
+
+    /**
+     * Update student violation record
+     * @param id
+     * @param score
+     */
+    void updateViolation(Integer id, Integer score);
+
+    /**
      * Check if class id has students
      * @param id
      * @return
@@ -71,4 +82,5 @@ public interface StudentService {
      * @return
      */
     String getName(Integer id);
+
 }

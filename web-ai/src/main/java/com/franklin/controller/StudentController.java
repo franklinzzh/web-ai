@@ -74,4 +74,30 @@ public class StudentController {
         studentService.update(updateDTO);
         return Result.success();
     }
+
+    /**
+     * Delete student by id
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public Result delete(@PathVariable Integer id) {
+        log.info("Delete /students - Delete student by ID: {}", id);
+        studentService.delete(id);
+        return Result.success();
+    }
+
+    /**
+     * Update student violation record
+     * @param id
+     * @param score
+     * @return
+     */
+    @PutMapping("/violation/{id}/{score}")
+    public Result updateViolation(@PathVariable Integer id, @PathVariable Integer score) {
+        log.info("Update /studens/violation/{id}/{score} - Update student violation record by ID:{} with score: {}",
+                 id, score);
+        studentService.updateViolation(id, score);
+        return Result.success();
+    }
 }

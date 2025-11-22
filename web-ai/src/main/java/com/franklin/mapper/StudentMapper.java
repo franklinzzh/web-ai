@@ -44,6 +44,19 @@ public interface StudentMapper {
     void update(StudentUpdateDTO updateDTO);
 
     /**
+     * Delete student by ID
+     * @param id
+     */
+    void delete(Integer id);
+
+    /**
+     * Update student violation record
+     * @param id
+     * @param score
+     */
+    void updateViolation(Integer id, Integer score);
+
+    /**
      * Check if a class has students
      * @param clazzId
      * @return

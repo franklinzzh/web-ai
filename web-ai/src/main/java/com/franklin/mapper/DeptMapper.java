@@ -1,5 +1,6 @@
 package com.franklin.mapper;
 
+import com.franklin.dto.DeptDTO;
 import com.franklin.entity.Dept;
 import org.apache.ibatis.annotations.*;
 
@@ -16,34 +17,30 @@ public interface DeptMapper {
      * 查询所有部门
      * @return
      */
-    @Select("select * from dept order by update_time desc")
-    List<Dept> getAll();
+    List<DeptDTO> getAll();
 
     /**
      *  删除指定id部门
      */
-    @Delete("delete from dept where id = #{id}")
+
     void delete(Integer id);
 
     /**
      * 增加指定部门
-     * @param dept
+     * @param deptDto
      */
-    @Insert("insert into dept(name, create_time, update_time) values(#{name}, #{createTime}, #{updateTime})")
-    void create(Dept dept);
+    void create(DeptDTO deptDto);
 
     /**
      * 根据id查询指定部门
      * @param id
      * @return id部门
      */
-    @Select("select id, name, create_time, update_time from dept where id = #{id}")
-    Dept get(Integer id);
+    DeptDTO get(Integer id);
 
     /**
      * 更新指定部门
-     * @param dept
+     * @param deptDto
      */
-    @Update("update dept set name = #{name}, update_time = #{updateTime} where id = #{id}")
-    void update(Dept dept);
+    void update(DeptDTO deptDto);
 }

@@ -1,12 +1,13 @@
 package com.franklin.service.impl;
 
-import com.franklin.entity.Dept;
+import com.franklin.dto.DeptDTO;
+import com.franklin.exception.BusinessException;
 import com.franklin.mapper.DeptMapper;
 import com.franklin.service.DeptService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.franklin.service.EmpService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -15,38 +16,37 @@ import java.util.List;
  * @Description:
  */
 @Service
+@RequiredArgsConstructor
 public class DeptServiceImpl implements DeptService {
 
-    @Autowired
-    private DeptMapper deptMapper;
+    private final DeptMapper deptMapper;
+    private final EmpService empService;
 
     @Override
-    public List<Dept> getAll() {
+    public List<DeptDTO> getAll() {
         return deptMapper.getAll();
     }
 
     @Override
-    public Dept delete(Integer id) {
-        Dept dept = deptMapper.get(id);
+    public void delete(Integer id) {
+        if (empService.existsByDeptId(id)) {
+            throw new BusinessException("Dept has emps, cannot be deleted");
+        }
         deptMapper.delete(id);
-        return dept;
     }
 
     @Override
-    public void create(Dept dept) {
-        dept.setCreateTime(LocalDateTime.now());
-        dept.setUpdateTime(LocalDateTime.now());
-        deptMapper.create(dept);
+    public void create(DeptDTO deptDto) {
+        deptMapper.create(deptDto);
     }
 
     @Override
-    public Dept get(Integer id) {
+    public DeptDTO get(Integer id) {
         return deptMapper.get(id);
     }
 
     @Override
-    public void update(Dept dept) {
-        dept.setUpdateTime(LocalDateTime.now());
-        deptMapper.update(dept);
+    public void update(DeptDTO deptDto) {
+        deptMapper.update(deptDto);
     }
 }

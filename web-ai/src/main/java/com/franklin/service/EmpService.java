@@ -52,4 +52,11 @@ public interface EmpService {
      * @param empDto
      */
     Result update(Integer id, EmpDto empDto);
+
+    /**
+     * Check if Dept exists emp
+     * @param deptId
+     * @return
+     */
+    boolean existsByDeptId(Integer deptId);
 }

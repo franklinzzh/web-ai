@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -26,9 +27,11 @@ public class ClazzUpdateDTO {
     private String room; //班级教室
 
     @NotNull(message = "beginDate is required")
+    @DateTimeFormat(pattern = ("yyyy-MM-dd"))
     private LocalDate beginDate; //开课时间
 
     @NotNull(message = "endDate is required")
+    @DateTimeFormat(pattern = ("yyyy-MM-dd"))
     private LocalDate endDate; //结课时间
 
     @NotNull(message = "masterId is required")

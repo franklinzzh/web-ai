@@ -2,6 +2,8 @@ package com.franklin.controller;
 
 import com.franklin.dto.GenderOptionDTO;
 import com.franklin.dto.JobOptionDTO;
+import com.franklin.dto.StudentCountDTO;
+import com.franklin.dto.StudentDegreeDTO;
 import com.franklin.service.ReportService;
 import com.franklin.util.Result;
 import lombok.RequiredArgsConstructor;
@@ -46,4 +48,27 @@ public class ReportController {
         List<GenderOptionDTO> genderDataList = reportService.getEmpGenderData();
         return Result.success(genderDataList);
     }
+
+    /**
+     * Fetch class name and student count
+     * @return
+     */
+    @GetMapping("/studentCountData")
+    public Result fetchStudentCount() {
+        log.info("Get /report/studentCountData - Fetch each class student count");
+        StudentCountDTO studentCountDTO = reportService.fetchStudentCount();
+        return Result.success(studentCountDTO);
+    }
+
+    /**
+     * Fetch student degree and count
+     * @return
+     */
+    @GetMapping("/studentDegreeData")
+    public Result fetchStudentDegree(){
+        log.info("Get /report/studentDegreeData - Fetch student degree");
+        List<StudentDegreeDTO> studentDegreeDTOs = reportService.fetchStudentDegree();
+        return Result.success(studentDegreeDTOs);
+    }
+
 }

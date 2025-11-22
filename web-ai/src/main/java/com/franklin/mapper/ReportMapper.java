@@ -1,6 +1,7 @@
 package com.franklin.mapper;
 
 import com.franklin.dto.GenderOptionDTO;
+import com.franklin.dto.StudentDegreeDTO;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -24,4 +25,17 @@ public interface ReportMapper {
 
 
     List<GenderOptionDTO> getEmpGenderData();
+
+    /**
+     * Fetch each class student count
+     * @return
+     */
+    @MapKey("name")
+    List<Map<String, Object>> fetchStudentCount();
+
+    /**
+     * Fetch student degree and count
+     * @return
+     */
+    List<StudentDegreeDTO> fetchStudentDegree();
 }

@@ -3,6 +3,8 @@ package com.franklin.service;
 
 import com.franklin.dto.GenderOptionDTO;
 import com.franklin.dto.JobOptionDTO;
+import com.franklin.dto.StudentCountDTO;
+import com.franklin.dto.StudentDegreeDTO;
 
 import java.util.List;
 
@@ -24,4 +26,16 @@ public interface ReportService {
      * @return List<GenderOptionDTO>
      */
     List<GenderOptionDTO> getEmpGenderData();
+
+    /**
+     * Fetch each class student count
+     * @return
+     */
+    StudentCountDTO fetchStudentCount();
+
+    /**
+     * Fetch student degree and count
+     * @return
+     */
+    List<StudentDegreeDTO> fetchStudentDegree();
 }

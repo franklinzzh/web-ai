@@ -8,7 +8,6 @@ import com.franklin.entity.Student;
 import com.franklin.exception.BusinessException;
 import com.franklin.mapper.StudentMapper;
 import com.franklin.service.StudentService;
-import com.franklin.util.Result;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +46,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void create(StudentCreateDTO createDTO) {
+        if (this.existsByName(createDTO.getName())) {
+            throw new BusinessException("Name already in use");
+        }
         if (createDTO.getPhone().length() != VALID_PHONE_NUM) {
             throw new BusinessException("Invalid Phone Number");
         }
@@ -70,11 +72,27 @@ public class StudentServiceImpl implements StudentService {
         //2. check if new name has been used
         String updateName = updateDTO.getName();
         String originName = this.getName(updateDTO.getId());
-        if (updateName != originName && this.existsByName(updateName)) {
+        if (!updateName.equals(originName) && this.existsByName(updateName)) {
             throw new BusinessException("Name already in use");
         }
         //3. update in sql
         studentMapper.update(updateDTO);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        if (!this.existsById(id)) {
+            throw new BusinessException("ID not exists");
+        }
+        studentMapper.delete(id);
+    }
+
+    @Override
+    public void updateViolation(Integer id, Integer score) {
+        if (!this.existsById(id)) {
+            throw new BusinessException("ID not exists");
+        }
+        studentMapper.updateViolation(id, score);
     }
 
     @Override

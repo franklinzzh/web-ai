@@ -58,4 +58,11 @@ public interface EmpMapper {
      * @param empDto
      */
     void update(EmpDto empDto);
+
+    /**
+     * Check if Dept exists emp
+     * @param deptId
+     * @return
+     */
+    boolean existsByDeptId(Integer deptId);
 }

@@ -12,23 +12,52 @@
             <if test="clazzId != null">clazz_id = #{clazzId}</if>
         </where>
     </select>
+    <select id="get" resultType="com.franklin.entity.Student">
+        select * from student where id = #{id}
+    </select>
 
     <insert id="create">
         insert into student(name,no,gender,phone,id_card,is_college,address,degree,graduation_date,clazz_id,create_time,update_time)
         values (#{name},#{no},#{gender},#{phone},#{idCard},#{isCollege},#{address},#{degree},#{graduationDate},#{clazzId},NOW(),NOW())
     </insert>
 
-    <select id="get" resultType="com.franklin.entity.Student">
-        select * from student where id = #{id}
-    </select>
 
     <update id="update">
         update student
         <set>
-            <if test="name != ''">name = #{name}</if>
+            <if test="name != ''">name = #{name},</if>
+            <if test="no != ''">no = #{no},</if>
+            gender = #{gender},
+            <if test="phone != ''">phone = #{phone},</if>
+            degree = #{degree},
+            clazz_id = #{clazzId},
+            violation_count = #{violationCount},
+            violation_score = #{violationScore},
+
+            <!--Optional-->
+            <if test="idCard != null and idCard != ''">id_card = #{idCard},</if>
+            <if test="isCollege != null">is_college = #{isCollege},</if>
+            <if test="address!= null and address != ''">address = #{address},</if>
+            <if test="graduationDate != null">graduation_date = #{graduationDate},</if>
+            update_time = NOW()
         </set>
+        where id = #{id}
+    </update>
+    <update id="updateViolation">
+        update student
+        <set>
+            violation_score = violation_score + #{score},
+            violation_count = violation_count + 1
+        </set>
+        where id = #{id}
     </update>
 
+    <delete id="delete">
+        delete from student
+        where id = #{id}
+    </delete>
+
+    <!--Helper methods-->
     <select id="existsByClazzId" resultType="java.lang.Boolean">
         select exists(
             select 1 from student where clazz_id = #{clazzId})

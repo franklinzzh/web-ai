@@ -1,5 +1,6 @@
 package com.franklin.controller;
 
+import com.franklin.dto.DeptDTO;
 import com.franklin.util.Result;
 import com.franklin.entity.Dept;
 import com.franklin.service.DeptService;
@@ -33,7 +34,7 @@ public class DeptController {
     @GetMapping
     public Result getAll(){
         System.out.println("查询部门全部数据");
-        List<Dept> deptList = deptService.getAll();
+        List<DeptDTO> deptList = deptService.getAll();
         return Result.success(deptList);
     }
 
@@ -47,25 +48,22 @@ public class DeptController {
         if (id == null) {
             return Result.error("非法id");
         }
-        Dept dept = deptService.delete(id);
-        return dept == null ? Result.error("Dept not exist") : Result.success(dept);
+
+        deptService.delete(id);
+        return Result.success();
     }
 
     /**
      * 增加指定部门 - POST - http://localhost:8080/depts 请求参数：{"name":"研发部"}
      *
-     * @param dept
+     * @param deptDto
      * @return Result
      * @author franklin
      * @date 11/16/25
      */
     @PostMapping
-    public Result create(@RequestBody Dept dept) {
-        if (dept == null) {
-            return Result.error("incorrect dept data");
-        }
-
-        deptService.create(dept);
+    public Result create(@RequestBody DeptDTO deptDto) {
+        deptService.create(deptDto);
         return Result.success();
     }
 
@@ -82,8 +80,8 @@ public class DeptController {
         if (id == null) {
             return Result.error("非法id");
         }
-        Dept dept = deptService.get(id);
-        return dept == null ? Result.error("Dept not exist") : Result.success(dept);
+        DeptDTO deptDTO = deptService.get(id);
+        return Result.success(deptDTO);
     }
 
     /**
@@ -95,11 +93,8 @@ public class DeptController {
      * @date 11/16/25
      */
     @PutMapping
-    public Result update(@RequestBody Dept dept) {
-        if (dept == null) {
-            return Result.error("incorrect dept");
-        }
-        deptService.update(dept);
+    public Result update(@RequestBody DeptDTO deptDto) {
+        deptService.update(deptDto);
         return Result.success();
     }
 
