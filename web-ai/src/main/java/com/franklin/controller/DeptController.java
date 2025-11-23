@@ -1,5 +1,6 @@
 package com.franklin.controller;
 
+import com.franklin.annotation.LogOperation;
 import com.franklin.dto.DeptDTO;
 import com.franklin.util.Result;
 import com.franklin.entity.Dept;
@@ -43,6 +44,7 @@ public class DeptController {
      * @param id
      * @return
      */
+    @LogOperation
     @DeleteMapping
     public Result delete(@RequestParam("id") Integer id) {
         if (id == null) {
@@ -61,6 +63,7 @@ public class DeptController {
      * @author franklin
      * @date 11/16/25
      */
+    @LogOperation
     @PostMapping
     public Result create(@RequestBody DeptDTO deptDto) {
         deptService.create(deptDto);
@@ -92,6 +95,7 @@ public class DeptController {
      * @author franklin
      * @date 11/16/25
      */
+    @LogOperation
     @PutMapping
     public Result update(@RequestBody DeptDTO deptDto) {
         deptService.update(deptDto);

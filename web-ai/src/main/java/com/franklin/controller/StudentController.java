@@ -1,5 +1,6 @@
 package com.franklin.controller;
 
+import com.franklin.annotation.LogOperation;
 import com.franklin.dto.StudentCreateDTO;
 import com.franklin.dto.StudentQueryParamDTO;
 import com.franklin.dto.StudentUpdateDTO;
@@ -44,6 +45,7 @@ public class StudentController {
      * @param createDTO
      * @return
      */
+    @LogOperation
     @PostMapping
     public Result create(@Valid @RequestBody StudentCreateDTO createDTO) {
         log.info("Post /students - Create student: {}", createDTO);
@@ -68,6 +70,7 @@ public class StudentController {
      * @param updateDTO
      * @return
      */
+    @LogOperation
     @PutMapping
     public Result update(@Valid @RequestBody StudentUpdateDTO updateDTO) {
         log.info("Put /students - Update student: {}", updateDTO);
@@ -80,6 +83,7 @@ public class StudentController {
      * @param id
      * @return
      */
+    @LogOperation
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         log.info("Delete /students - Delete student by ID: {}", id);
@@ -93,6 +97,7 @@ public class StudentController {
      * @param score
      * @return
      */
+    @LogOperation
     @PutMapping("/violation/{id}/{score}")
     public Result updateViolation(@PathVariable Integer id, @PathVariable Integer score) {
         log.info("Update /studens/violation/{id}/{score} - Update student violation record by ID:{} with score: {}",

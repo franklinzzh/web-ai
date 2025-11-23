@@ -2,6 +2,7 @@ package com.franklin.controller;
 
 import com.franklin.dto.LoginRequestDTO;
 import com.franklin.dto.LoginResponseDTO;
+import com.franklin.service.EmpService;
 import com.franklin.service.LoginService;
 import com.franklin.util.Result;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,8 @@ public class LoginController {
 
     private final LoginService loginService;
 
+    private final EmpService empService;
+
     /**
      * Employee login
      * @param requestDTO
@@ -30,8 +33,8 @@ public class LoginController {
      */
     @PostMapping("/login")
     public Result<LoginResponseDTO> login(@RequestBody LoginRequestDTO requestDTO) {
-        log.info("Post /login - Login: {}", requestDTO);
-        LoginResponseDTO responseDTO = loginService.login(requestDTO);
+        log.info("Post /login - Employee Login: {}", requestDTO);
+        LoginResponseDTO responseDTO = empService.login(requestDTO);
         return Result.success(responseDTO);
     }
 

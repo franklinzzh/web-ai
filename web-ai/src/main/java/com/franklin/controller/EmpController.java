@@ -1,5 +1,6 @@
 package com.franklin.controller;
 
+import com.franklin.annotation.LogOperation;
 import com.franklin.dto.EmpDto;
 import com.franklin.util.Result;
 import com.franklin.dto.EmpQueryParam;
@@ -52,6 +53,7 @@ public class EmpController {
      * 添加员工
      * @return Result<PageResult<Emp>>
      */
+    @LogOperation
     @PostMapping
     public Result<Emp> create(@RequestBody EmpDto empDto) {
         log.info("请求参数emp: {}", empDto);
@@ -64,6 +66,7 @@ public class EmpController {
      * @param ids
      * @return
      */
+    @LogOperation
     @DeleteMapping
     public Result delete(@RequestParam List<Integer> ids) {
         log.info("DELETE => {}", ids);
@@ -92,6 +95,7 @@ public class EmpController {
      * @param empDto
      * @return Result<Emp>
      */
+    @LogOperation
     @PutMapping("/{id}")
     public Result update(@PathVariable Integer id, @RequestBody EmpDto empDto) {
         log.info("PUT /emps/{} => updating emp", id);

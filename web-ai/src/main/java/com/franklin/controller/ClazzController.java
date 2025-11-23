@@ -1,5 +1,6 @@
 package com.franklin.controller;
 
+import com.franklin.annotation.LogOperation;
 import com.franklin.dto.ClazzCreateDTO;
 import com.franklin.dto.ClazzDTO;
 import com.franklin.dto.ClazzQueryParamDTO;
@@ -40,6 +41,7 @@ public class ClazzController {
         return Result.success(clazzService.getPage(clazzQueryParamDTO));
     }
 
+    @LogOperation
     @PostMapping
     public Result create(@Valid @RequestBody ClazzCreateDTO dto) {
         log.info("POST /clazzs - create new class with name: {}", dto.getName());
@@ -52,6 +54,7 @@ public class ClazzController {
      * @param id
      * @return result of delete
      */
+    @LogOperation
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         log.info("[DELETE] - request id={}", id);
@@ -75,6 +78,7 @@ public class ClazzController {
      * @param dto
      * @return
      */
+    @LogOperation
     @PutMapping
     public Result update(@Valid @RequestBody ClazzUpdateDTO dto) {
         log.info("[PUT] - request body: {}", dto);

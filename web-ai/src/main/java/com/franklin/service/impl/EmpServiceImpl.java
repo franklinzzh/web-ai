@@ -2,12 +2,16 @@ package com.franklin.service.impl;
 
 import com.franklin.dto.EmpDto;
 import com.franklin.dto.EmpQueryParam;
+import com.franklin.dto.LoginRequestDTO;
+import com.franklin.dto.LoginResponseDTO;
 import com.franklin.entity.Emp;
 import com.franklin.entity.EmpExpr;
 import com.franklin.entity.PageResult;
 import com.franklin.mapper.EmpExprMapper;
 import com.franklin.mapper.EmpMapper;
 import com.franklin.service.EmpService;
+import com.franklin.service.LoginService;
+import com.franklin.util.JwtUtil;
 import com.franklin.util.Result;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -31,6 +35,8 @@ public class EmpServiceImpl implements EmpService {
     private final EmpMapper empMapper;
 
     private final EmpExprMapper empExprMapper;
+
+    private final LoginService loginService;
 
     @Override
     public PageResult getAll(EmpQueryParam empQueryParam) {
@@ -110,5 +116,14 @@ public class EmpServiceImpl implements EmpService {
     @Override
     public boolean existsByDeptId(Integer deptId) {
         return empMapper.existsByDeptId(deptId);
+    }
+
+    @Override
+    public LoginResponseDTO login(LoginRequestDTO requestDTO) {
+        LoginResponseDTO response = loginService.login(requestDTO);
+        String token  = JwtUtil.generateToken(response.getId(), response.getUsername());
+        response.setToken(token);
+        System.out.println(response);
+        return response;
     }
 }
