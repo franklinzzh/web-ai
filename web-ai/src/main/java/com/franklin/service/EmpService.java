@@ -1,9 +1,6 @@
 package com.franklin.service;
 
-import com.franklin.dto.EmpDto;
-import com.franklin.dto.EmpQueryParam;
-import com.franklin.dto.LoginRequestDTO;
-import com.franklin.dto.LoginResponseDTO;
+import com.franklin.dto.*;
 import com.franklin.entity.Emp;
 import com.franklin.entity.PageResult;
 import com.franklin.util.Result;
@@ -30,9 +27,9 @@ public interface EmpService {
     List<Emp> getAll();
     /**
      * 添加员工
-     * @param empDto
+     * @param createDTO
      */
-    void create(EmpDto empDto);
+    void create(EmpCreateDTO createDTO);
 
     /**
      * 删除员工

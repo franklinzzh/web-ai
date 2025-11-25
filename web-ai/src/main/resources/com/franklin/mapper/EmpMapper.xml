@@ -13,6 +13,9 @@
             <if test="gender != null">
                 AND e.gender = #{gender}
             </if>
+            <if test="job != null">
+                AND e.job = #{job}
+            </if>
             <if test="begin != null">
                 AND e.entry_date &gt;= #{begin}
             </if>

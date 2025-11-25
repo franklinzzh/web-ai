@@ -1,12 +1,14 @@
 package com.franklin.controller;
 
 import com.franklin.annotation.LogOperation;
+import com.franklin.dto.EmpCreateDTO;
 import com.franklin.dto.EmpDto;
 import com.franklin.util.Result;
 import com.franklin.dto.EmpQueryParam;
 import com.franklin.entity.Emp;
 import com.franklin.entity.PageResult;
 import com.franklin.service.EmpService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +34,7 @@ public class EmpController {
      * @return Result<PageResult<Emp>>
      */
     @GetMapping
-    public Result<PageResult<EmpDto>> getAll(EmpQueryParam empQueryParam) {
+    public Result<PageResult<EmpDto>> getAll(@Valid EmpQueryParam empQueryParam) {
         log.info("GET => {}", empQueryParam);
         PageResult<EmpDto> pageResult = empService.getAll(empQueryParam);
         return Result.success(pageResult);
@@ -55,9 +57,9 @@ public class EmpController {
      */
     @LogOperation
     @PostMapping
-    public Result<Emp> create(@RequestBody EmpDto empDto) {
-        log.info("请求参数emp: {}", empDto);
-        empService.create(empDto);
+    public Result<Emp> create(@Valid @RequestBody EmpCreateDTO createDTO) {
+        log.info("请求参数emp: {}", createDTO);
+        empService.create(createDTO);
         return Result.success();
     }
 

@@ -1,5 +1,6 @@
 package com.franklin.mapper;
 
+import com.franklin.dto.EmpCreateDTO;
 import com.franklin.dto.EmpDto;
 import com.franklin.dto.EmpQueryParam;
 import com.franklin.entity.Emp;
@@ -35,9 +36,9 @@ public interface EmpMapper {
 
     /**
      * 添加员工
-     * @param empDto
+     * @param emp
      */
-    Integer insert(EmpDto empDto);
+    Integer insert(Emp emp);
 
     /**
      * 删除员工

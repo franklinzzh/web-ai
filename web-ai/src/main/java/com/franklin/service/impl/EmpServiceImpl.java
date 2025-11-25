@@ -1,9 +1,6 @@
 package com.franklin.service.impl;
 
-import com.franklin.dto.EmpDto;
-import com.franklin.dto.EmpQueryParam;
-import com.franklin.dto.LoginRequestDTO;
-import com.franklin.dto.LoginResponseDTO;
+import com.franklin.dto.*;
 import com.franklin.entity.Emp;
 import com.franklin.entity.EmpExpr;
 import com.franklin.entity.PageResult;
@@ -22,6 +19,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Auther: franklin
@@ -58,19 +56,55 @@ public class EmpServiceImpl implements EmpService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void create(EmpDto empDto) {
-        //fill basic info
-        empDto.setCreateTime(LocalDateTime.now());
-        empDto.setUpdateTime(LocalDateTime.now());
+    public void create(EmpCreateDTO createDTO) {
         // create emp data
-        Integer id = empMapper.insert(empDto);
+        Emp emp = this.convert(createDTO);
+        Integer id = empMapper.insert(emp);
 
         // create emp experience data - in batch
-        List<EmpExpr> exprList = empDto.getExprList();
+        List<EmpExprCreateDTO> exprList = createDTO.getExprList();
+
         if (!CollectionUtils.isEmpty(exprList)) {
-            exprList.forEach(empExpr ->  empExpr.setEmpId(id));
-            empExprMapper.insertBatch(exprList);
+            List<EmpExpr> entityList = exprList.stream()
+                    .map(dto -> {
+                        EmpExpr e = new EmpExpr();
+                        e.setEmpId(id);
+                        e.setCompany(dto.getCompany());
+                        e.setBegin(dto.getBegin());
+                        e.setEnd(dto.getEnd());
+                        return e;
+                    }).collect(Collectors.toList());
+            empExprMapper.insertBatch(entityList);
         }
+    }
+
+    private Emp convert(EmpCreateDTO dto) {
+        Emp emp = new Emp();
+        emp.setUsername(dto.getUsername());
+        emp.setName(dto.getName());
+        emp.setGender(dto.getGender());
+        if (dto.getPhone() != null) {
+            emp.setPhone(dto.getPhone());
+        }
+        if (dto.getJob() != null) {
+            emp.setJob(dto.getJob());
+        }
+        if (dto.getSalary() != null) {
+            emp.setSalary(dto.getSalary());
+        }
+        if (dto.getImage() != null) {
+            emp.setImage(dto.getImage());
+        }
+        if (dto.getEntryDate() != null) {
+            emp.setEntryDate(dto.getEntryDate());
+        }
+        if (dto.getDeptId() != null) {
+            emp.setDeptId(dto.getDeptId());
+        }
+        emp.setCreateTime(LocalDateTime.now());
+        emp.setUpdateTime(LocalDateTime.now());
+
+        return emp;
     }
 
     @Transactional(rollbackFor = Exception.class)

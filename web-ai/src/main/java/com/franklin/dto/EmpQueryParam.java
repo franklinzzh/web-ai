@@ -1,5 +1,6 @@
 package com.franklin.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -19,6 +20,9 @@ public class EmpQueryParam {
     // Gender filter (optional)
     private Integer gender;
 
+    // Job filter (optional)
+    private Integer job;
+
     // Start date (optional)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate begin;
@@ -28,6 +32,10 @@ public class EmpQueryParam {
     private LocalDate end;
 
     // Pagination defaults
+
+    @NotNull
     private Integer page = 1;
+
+    @NotNull
     private Integer pageSize = 10;
 }
