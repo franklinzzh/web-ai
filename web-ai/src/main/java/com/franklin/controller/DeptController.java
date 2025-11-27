@@ -66,6 +66,7 @@ public class DeptController {
     @LogOperation
     @PostMapping
     public Result create(@RequestBody DeptDTO deptDto) {
+        System.out.println("增加指定部门");
         deptService.create(deptDto);
         return Result.success();
     }

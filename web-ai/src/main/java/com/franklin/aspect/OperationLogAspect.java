@@ -3,6 +3,7 @@ package com.franklin.aspect;
 import com.franklin.annotation.LogOperation;
 import com.franklin.entity.OperateLog;
 import com.franklin.mapper.OperateLogMapper;
+import com.franklin.service.LogService;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -22,7 +23,7 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class OperationLogAspect {
 
-    private final OperateLogMapper operateLogMapper;
+    private final LogService logService;
 
     @Around("@annotation(log)")
     public Object around(ProceedingJoinPoint joinPoint, LogOperation log) throws Throwable {
@@ -46,7 +47,7 @@ public class OperationLogAspect {
         operateLog.setCostTime(costTime);
 
         // 插入日志
-        operateLogMapper.insert(operateLog);
+        logService.writeLogAsync(operateLog);
         return result;
     }
 

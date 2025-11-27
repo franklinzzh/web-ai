@@ -29,6 +29,9 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public void delete(Integer id) {
+        if (this.get(id) == null) {
+            throw new BusinessException("Dept not exists");
+        }
         if (empService.existsByDeptId(id)) {
             throw new BusinessException("Dept has emps, cannot be deleted");
         }
