@@ -5,7 +5,7 @@
 <mapper namespace="com.franklin.mapper.DeptMapper">
 
     <select id="getAll" resultType="com.franklin.dto.DeptDTO">
-        select * from dept order by update_time desc
+        select * from dept order by id asc
     </select>
     <select id="get" resultType="com.franklin.dto.DeptDTO">
         select id, name, create_time, update_time from dept where id = #{id}

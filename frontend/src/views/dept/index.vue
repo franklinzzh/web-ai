@@ -95,23 +95,24 @@ const deleteById = async (id) => {
     'Warning',
     {confirmButtonText: 'OK', cancelButtonText: 'Cancel', type: 'warning',}
   ).then(async () => {
-    const res = await deleteByIdApi(id);
-    if(res.code == 200) {
-      ElMessage.success('Department deleted successfully');
-      search();
-    } else {
-      ElMessage.error(res.message);
-    } 
+    try {
+      const res = await deleteByIdApi(id);
+      if(res.code == 200) {
+        ElMessage.success('Department deleted successfully');
+        search();
+      } else {
+        ElMessage.error(res.message);
+      } 
+    } catch (error) {
+      console.error('API Error:', error);
+      ElMessage.error('Network error, please try again later');
+    }
   }).catch(() => {
     ElMessage.info('Delete canceled');
     return;
   })
   
 };
-
-const open = () => {
-  
-}
 
 // form data input validation rules
 const rules = ref({
@@ -124,9 +125,11 @@ const rules = ref({
 </script>
 
 <template>
-  <h1>Department View</h1>
-  <div class="container">
-    <el-button type="primary" @click="addDept">+ Department</el-button>
+  <h1>Department Management</h1>
+  <div class="wrapper">
+    <div class="container">
+      <el-button type="primary" @click="addDept">+ Department</el-button>
+    </div>
   </div>
 
   <div class="container">
@@ -162,8 +165,13 @@ const rules = ref({
 </template>
 
 <style scoped>
+.wrapper {
+  display: flex;
+  justify-content: flex-end; /* move to right */
+}
+
 .container {
-  padding: 20px;
-  margin: 20px 0px;
+  padding: 10px;
+  margin: 10px 0px;
 }
 </style>

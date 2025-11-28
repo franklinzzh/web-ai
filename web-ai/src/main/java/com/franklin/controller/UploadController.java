@@ -38,10 +38,12 @@ public class UploadController {
         String originalFileName = image.getOriginalFilename();
         String extName = originalFileName.substring(originalFileName.lastIndexOf("."));
         String uniqueFileName = "img-" + username + "-" + UUID.randomUUID().toString().replace("-", "") + extName;
+        System.out.println(uniqueFileName);
         // Upload file
         String dirName = "emp/photo/";
         String objectName = dirName + uniqueFileName;
         String url = aliyunOSSService.upload(objectName, image.getInputStream());
+        System.out.println(url);
         return Result.success(url);
     }
 }
