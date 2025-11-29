@@ -1,13 +1,12 @@
 package com.franklin.controller;
 
 import com.aliyuncs.exceptions.ClientException;
+import com.franklin.dto.upload.PresignUrlDTO;
 import com.franklin.service.AliyunOSSService;
 import com.franklin.util.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -21,29 +20,45 @@ import java.util.UUID;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/upload")
 public class UploadController {
 
     private final AliyunOSSService aliyunOSSService;
 
     /**
-     * 上传文件
+     * Upload File to AliyunOSS
+     *
+     * @param username
+     * @param avatar
+     * @return
+     * @throws IOException
+     * @throws ClientException
      */
-    @PostMapping("/upload")
-    public Result upload(String username, Integer age, @RequestParam("file") MultipartFile image) throws IOException, ClientException {
-        log.info("上传文件：{}, {}, {}", username, age, image);
-        if (image == null || image.isEmpty()){
+    @PostMapping("/avatar")
+    public Result upload(String username, @RequestParam("file") MultipartFile avatar) throws IOException, ClientException {
+        log.info("上传文件：{}, {}", username, avatar);
+        if (avatar == null || avatar.isEmpty()){
             return Result.error("File is empty.");
         }
         // Set the Unique File Name
-        String originalFileName = image.getOriginalFilename();
+        String originalFileName = avatar.getOriginalFilename();
         String extName = originalFileName.substring(originalFileName.lastIndexOf("."));
-        String uniqueFileName = "img-" + username + "-" + UUID.randomUUID().toString().replace("-", "") + extName;
+        String uniqueFileName = "img-" + UUID.randomUUID().toString().replace("-", "") + extName;
         System.out.println(uniqueFileName);
         // Upload file
         String dirName = "emp/photo/";
         String objectName = dirName + uniqueFileName;
-        String url = aliyunOSSService.upload(objectName, image.getInputStream());
-        System.out.println(url);
-        return Result.success(url);
+        String OSSPath =aliyunOSSService.upload(objectName, avatar.getInputStream());
+        System.out.println(OSSPath);
+        // return OSS file path
+        return Result.success(OSSPath);
     }
+
+    @PostMapping("/presign")
+    public Result fetchPresignedUrl(@RequestBody PresignUrlDTO urlDTO) throws ClientException{
+        log.info("Fetch Presigned Url: {}", urlDTO);
+        String presignedUrl =aliyunOSSService.generatePresignedUrl(urlDTO);
+        return Result.success(presignedUrl);
+    }
+
 }

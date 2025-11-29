@@ -40,8 +40,8 @@ const addDept = () => {
 };
 
 //create or update dept
-  const save = async () => {
-    if(!deptFormRef.value) return;
+const save = async () => {
+  if(!deptFormRef.value) return;
     // validate form input
     await deptFormRef.value.validate(async (valid) => {
       if(valid) {
@@ -121,8 +121,9 @@ const rules = ref({
     { min: 2, max: 10, message: 'Length should be 2 to 10', trigger: 'blur' },
   ],
 });
-
 </script>
+
+
 
 <template>
   <h1>Department Management</h1>

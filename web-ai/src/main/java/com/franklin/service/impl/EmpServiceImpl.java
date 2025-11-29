@@ -59,8 +59,9 @@ public class EmpServiceImpl implements EmpService {
     public void create(EmpCreateDTO createDTO) {
         // create emp data
         Emp emp = this.convert(createDTO);
-        Integer id = empMapper.insert(emp);
-
+        empMapper.insert(emp);
+        Integer id = emp.getId();
+        System.out.println("Create emp id: " + id);
         // create emp experience data - in batch
         List<EmpExprCreateDTO> exprList = createDTO.getExprList();
 

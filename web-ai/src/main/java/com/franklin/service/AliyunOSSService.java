@@ -1,5 +1,7 @@
 package com.franklin.service;
 
+import com.franklin.dto.upload.PresignUrlDTO;
+
 import java.io.InputStream;
 
 /**
@@ -17,4 +19,6 @@ public interface AliyunOSSService {
      */
     String upload(String Object, InputStream inputStream) throws com.aliyuncs.exceptions.ClientException;
 
+
+    String generatePresignedUrl(PresignUrlDTO urlDTO) throws com.aliyuncs.exceptions.ClientException;
 }
