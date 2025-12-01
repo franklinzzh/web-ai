@@ -1,10 +1,9 @@
 package com.franklin.mapper;
 
-import com.franklin.dto.StudentCreateDTO;
-import com.franklin.dto.StudentQueryParamDTO;
-import com.franklin.dto.StudentUpdateDTO;
+import com.franklin.dto.student.StudentCreateDTO;
+import com.franklin.dto.student.StudentQueryParamDTO;
+import com.franklin.dto.student.StudentUpdateDTO;
 import com.franklin.entity.Student;
-import com.franklin.util.Result;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

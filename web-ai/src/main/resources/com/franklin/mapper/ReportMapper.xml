@@ -18,7 +18,7 @@
     </select>
 
     <!--SELECT Emp Gender Data-->
-    <select id="getEmpGenderData" resultType="com.franklin.dto.GenderOptionDTO">
+    <select id="getEmpGenderData" resultType="com.franklin.dto.report.GenderOptionDTO">
         select (case gender when 1 then '男性员工'
                             when 2 then '女性员工'
                             else '未知' end) as name,
@@ -33,7 +33,7 @@
         group by s.clazz_id
         order by num
     </select>
-    <select id="fetchStudentDegree" resultType="com.franklin.dto.StudentDegreeDTO">
+    <select id="fetchStudentDegree" resultType="com.franklin.dto.report.StudentDegreeDTO">
         select (case degree
                     when 1 then '初中'
                     when 2 then '高中'

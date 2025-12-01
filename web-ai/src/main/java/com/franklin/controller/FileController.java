@@ -3,6 +3,7 @@ package com.franklin.controller;
 import com.aliyuncs.exceptions.ClientException;
 import com.franklin.dto.upload.PresignUrlDTO;
 import com.franklin.service.AliyunOSSService;
+import com.franklin.service.FileService;
 import com.franklin.util.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 /**
@@ -20,13 +23,30 @@ import java.util.UUID;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/upload")
-public class UploadController {
+public class FileController {
 
     private final AliyunOSSService aliyunOSSService;
+    private final FileService fileService;
 
     /**
-     * Upload File to AliyunOSS
+     * Upload File to AliyunOSS -- path: util/
+     *
+     * @param file
+     * @return
+     * @throws IOException
+     * @throws ClientException
+     */
+    @PostMapping("/upload/file")
+    public Result upload(@RequestParam("file") MultipartFile file) throws IOException, ClientException {
+        log.info("上传文件：{}", file);
+        String OSSPath = fileService.upload(file);
+        System.out.println(OSSPath);
+        // return OSS file path
+        return Result.success(OSSPath);
+    }
+
+    /**
+     * Upload Avatar to AliyunOSS -- path: emp/photo/
      *
      * @param username
      * @param avatar
@@ -34,23 +54,13 @@ public class UploadController {
      * @throws IOException
      * @throws ClientException
      */
-    @PostMapping("/avatar")
-    public Result upload(String username, @RequestParam("file") MultipartFile avatar) throws IOException, ClientException {
+
+    @PostMapping("/upload/avatar")
+    public Result uploadAvatar(@RequestParam String username, @RequestParam("file") MultipartFile avatar) throws ClientException, IOException {
         log.info("上传文件：{}, {}", username, avatar);
-        if (avatar == null || avatar.isEmpty()){
-            return Result.error("File is empty.");
-        }
-        // Set the Unique File Name
-        String originalFileName = avatar.getOriginalFilename();
-        String extName = originalFileName.substring(originalFileName.lastIndexOf("."));
-        String uniqueFileName = "img-" + UUID.randomUUID().toString().replace("-", "") + extName;
-        System.out.println(uniqueFileName);
-        // Upload file
-        String dirName = "emp/photo/";
-        String objectName = dirName + uniqueFileName;
-        String OSSPath =aliyunOSSService.upload(objectName, avatar.getInputStream());
-        System.out.println(OSSPath);
+        String OSSPath = fileService.uploadAvatar(username, avatar);
         // return OSS file path
+        log.info("Finished：{}", avatar);
         return Result.success(OSSPath);
     }
 

@@ -1,4 +1,4 @@
-package com.franklin.dto;
+package com.franklin.dto.emp;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

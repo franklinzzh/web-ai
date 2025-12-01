@@ -1,10 +1,10 @@
 package com.franklin.controller;
 
 import com.franklin.annotation.LogOperation;
-import com.franklin.dto.EmpCreateDTO;
-import com.franklin.dto.EmpDto;
+import com.franklin.dto.emp.EmpCreateDTO;
+import com.franklin.dto.emp.EmpDto;
 import com.franklin.util.Result;
-import com.franklin.dto.EmpQueryParam;
+import com.franklin.dto.emp.EmpQueryParam;
 import com.franklin.entity.Emp;
 import com.franklin.entity.PageResult;
 import com.franklin.service.EmpService;

@@ -1,4 +1,4 @@
-package com.franklin.dto;
+package com.franklin.dto.clazz;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -11,14 +11,11 @@ import java.time.LocalDate;
 /**
  * @Auther: franklin
  * @Date: 2025/11/21
- * @Description: Clazz DTO fro Update
+ * @Description: Clazz DTO for Create
  */
 @Data
 @NoArgsConstructor
-public class ClazzUpdateDTO {
-
-    @NotNull(message = "ID is required")
-    private Integer id; //ID
+public class ClazzCreateDTO {
 
     @NotEmpty(message = "name is required")
     private String name; //班级名称
@@ -34,10 +31,9 @@ public class ClazzUpdateDTO {
     @DateTimeFormat(pattern = ("yyyy-MM-dd"))
     private LocalDate endDate; //结课时间
 
-    @NotNull(message = "masterId is required")
-    private Integer masterId; //班主任
-
-    // Optional
+    @NotNull(message = "subject is required")
     private Integer subject; //学科
 
+    // Optional
+    private Integer masterId; //班主任
 }

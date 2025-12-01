@@ -1,10 +1,9 @@
 package com.franklin.mapper;
 
-import com.franklin.dto.ClazzCreateDTO;
-import com.franklin.dto.ClazzDTO;
-import com.franklin.dto.ClazzQueryParamDTO;
-import com.franklin.dto.ClazzUpdateDTO;
-import com.franklin.entity.Clazz;
+import com.franklin.dto.clazz.ClazzCreateDTO;
+import com.franklin.dto.clazz.ClazzDTO;
+import com.franklin.dto.clazz.ClazzQueryParamDTO;
+import com.franklin.dto.clazz.ClazzUpdateDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

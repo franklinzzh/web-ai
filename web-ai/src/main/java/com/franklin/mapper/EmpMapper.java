@@ -1,8 +1,7 @@
 package com.franklin.mapper;
 
-import com.franklin.dto.EmpCreateDTO;
-import com.franklin.dto.EmpDto;
-import com.franklin.dto.EmpQueryParam;
+import com.franklin.dto.emp.EmpDto;
+import com.franklin.dto.emp.EmpQueryParam;
 import com.franklin.entity.Emp;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;

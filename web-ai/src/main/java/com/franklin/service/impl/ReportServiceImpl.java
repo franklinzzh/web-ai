@@ -1,18 +1,16 @@
 package com.franklin.service.impl;
 
-import com.franklin.dto.GenderOptionDTO;
-import com.franklin.dto.JobOptionDTO;
-import com.franklin.dto.StudentCountDTO;
-import com.franklin.dto.StudentDegreeDTO;
+import com.franklin.dto.report.GenderOptionDTO;
+import com.franklin.dto.report.JobOptionDTO;
+import com.franklin.dto.report.StudentCountDTO;
+import com.franklin.dto.report.StudentDegreeDTO;
 import com.franklin.mapper.ReportMapper;
 import com.franklin.service.ReportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collector;
 
 /**
  * @Auther: franklin

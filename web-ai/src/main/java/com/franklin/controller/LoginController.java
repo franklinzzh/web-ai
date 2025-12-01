@@ -34,7 +34,7 @@ public class LoginController {
     @PostMapping("/login")
     public Result<LoginResponseDTO> login(@RequestBody LoginRequestDTO requestDTO) {
         log.info("Post /login - Employee Login: {}", requestDTO);
-        LoginResponseDTO responseDTO = empService.login(requestDTO);
+        LoginResponseDTO responseDTO = loginService.login(requestDTO);
         return Result.success(responseDTO);
     }
 

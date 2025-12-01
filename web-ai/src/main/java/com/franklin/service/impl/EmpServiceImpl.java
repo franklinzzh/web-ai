@@ -1,6 +1,9 @@
 package com.franklin.service.impl;
 
-import com.franklin.dto.*;
+import com.franklin.dto.emp.EmpCreateDTO;
+import com.franklin.dto.emp.EmpDto;
+import com.franklin.dto.emp.EmpExprCreateDTO;
+import com.franklin.dto.emp.EmpQueryParam;
 import com.franklin.entity.Emp;
 import com.franklin.entity.EmpExpr;
 import com.franklin.entity.PageResult;
@@ -8,7 +11,6 @@ import com.franklin.mapper.EmpExprMapper;
 import com.franklin.mapper.EmpMapper;
 import com.franklin.service.EmpService;
 import com.franklin.service.LoginService;
-import com.franklin.util.JwtUtil;
 import com.franklin.util.Result;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -153,12 +155,12 @@ public class EmpServiceImpl implements EmpService {
         return empMapper.existsByDeptId(deptId);
     }
 
-    @Override
-    public LoginResponseDTO login(LoginRequestDTO requestDTO) {
-        LoginResponseDTO response = loginService.login(requestDTO);
-        String token  = JwtUtil.generateToken(response.getId(), response.getUsername());
-        response.setToken(token);
-        System.out.println(response);
-        return response;
-    }
+//    @Override
+//    public LoginResponseDTO login(LoginRequestDTO requestDTO) {
+//        LoginResponseDTO response = loginService.login(requestDTO);
+//        String token  = JwtUtil.generateToken(response.getId(), response.getUsername());
+//        response.setToken(token);
+//        System.out.println(response);
+//        return response;
+//    }
 }

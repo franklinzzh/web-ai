@@ -13,4 +13,4 @@ export const updateApi = (emp) => request.put('/emps', emp)
 export const fetchByIdApi = (id) => request.get(`/emps/${id}`)
 
 //delete an employee by id
-export const deleteByIdApi = (id) => request.delete(`/emps?id=${id}`)    
+export const deleteByIdApi = (id) => request.delete(`/emps?ids=${id}`)    

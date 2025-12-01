@@ -1,4 +1,4 @@
-package com.franklin.dto;
+package com.franklin.dto.clazz;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -7,16 +7,18 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * @Auther: franklin
  * @Date: 2025/11/21
- * @Description: Clazz DTO for Create
+ * @Description: Clazz DTO fro Update
  */
 @Data
 @NoArgsConstructor
-public class ClazzCreateDTO {
+public class ClazzUpdateDTO {
+
+    @NotNull(message = "ID is required")
+    private Integer id; //ID
 
     @NotEmpty(message = "name is required")
     private String name; //班级名称
@@ -32,9 +34,10 @@ public class ClazzCreateDTO {
     @DateTimeFormat(pattern = ("yyyy-MM-dd"))
     private LocalDate endDate; //结课时间
 
-    @NotNull(message = "subject is required")
-    private Integer subject; //学科
+    @NotNull(message = "masterId is required")
+    private Integer masterId; //班主任
 
     // Optional
-    private Integer masterId; //班主任
+    private Integer subject; //学科
+
 }

@@ -1,4 +1,4 @@
-package com.franklin.dto;
+package com.franklin.dto.report;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

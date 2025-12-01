@@ -1,10 +1,8 @@
-package com.franklin.dto;
+package com.franklin.dto.report;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 /**
  * @Auther: franklin

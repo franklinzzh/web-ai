@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <img src="../../assets/index.png">
+  <img src="/loginBackground.png" alt="Background Image" />
 </template>
 
 <style scoped>

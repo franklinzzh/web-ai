@@ -1,7 +1,7 @@
 package com.franklin.mapper;
 
-import com.franklin.dto.GenderOptionDTO;
-import com.franklin.dto.StudentDegreeDTO;
+import com.franklin.dto.report.GenderOptionDTO;
+import com.franklin.dto.report.StudentDegreeDTO;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 

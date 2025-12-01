@@ -1,3 +1,59 @@
+<script setup>
+import { ref, onMounted } from 'vue'
+import { ElMessage, ElMessageBox } from 'element-plus';
+import { useRouter } from 'vue-router'
+
+let router = useRouter()
+
+const loginName = ref('')
+const loginUserName = ref('')
+//定义钩子函数, 获取登录用户名
+onMounted(() => {
+  //获取登录用户名
+  let loginUser = JSON.parse(localStorage.getItem('loginUser'))
+  loginName.value = loginUser ? loginUser.name : 'Guest [Sign in]'
+  loginUserName.value = loginUser ? loginUser.username : null
+})
+
+const user = () => {
+  let loginUser = JSON.parse(localStorage.getItem('loginUser'))
+  if (loginUser) {
+    ElMessage.info(`Direct to user: ${loginUserName.value}`);
+    router.push({ name: 'userProfile', params: { username: loginUser.username } })
+  } else {
+    ElMessageBox.confirm('You are not logged in. Do you want to log in now?', 'Not Logged In', {
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      type: 'warning',
+    }).then(() => {
+      router.push('/login')
+    })
+  }
+}
+
+
+const onLogout = () => {
+  let loginUser = JSON.parse(localStorage.getItem('loginUser'))
+  if (!loginUser) {
+    ElMessage.info('You are not logged in');
+    return
+  } else {
+    ElMessageBox.confirm('Are you sure you want to sign out?', 'Confirm Sign Out', {
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No',
+      type: 'warning',
+    }).then(() => {
+      ElMessage.success('You have signed out successfully')
+      localStorage.removeItem('loginUser')
+      loginName.value = ''
+      router.push('/login')
+    })
+  }
+}
+
+</script>
+
+
 <template>
   <div class="common-layout">
   <el-container>
@@ -10,17 +66,15 @@
 
       <!-- Right tools -->
       <div class="header-right">
-        <a class="tool-item">
-          <el-icon><EditPen /></el-icon>
-          <span>Profile</span>
-        </a>
-
+        <el-button text class="tool-item" @click="user">
+          <el-icon><User /></el-icon>
+          <span>{{ loginName }}</span>
+        </el-button>
         <span class="divider">|</span>
-
-        <a class="tool-item" @click="onLogout">
+        <el-button text bg class="tool-item" @click="onLogout">
           <el-icon><SwitchButton /></el-icon>
-          <span>Logout</span>
-        </a>
+          <span>Sign out</span>
+        </el-button>
       </div>
     </el-header>
     <el-container>
@@ -88,13 +142,6 @@
   </div>
 </template>
 
-<script setup>
-import { EditPen, SwitchButton } from "@element-plus/icons-vue";
-
-const onLogout = () => {
-  console.log("Logout clicked");
-};
-</script>
 
 <style scoped>
 /* header style */

@@ -1,6 +1,5 @@
-package com.franklin.dto;
+package com.franklin.dto.clazz;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

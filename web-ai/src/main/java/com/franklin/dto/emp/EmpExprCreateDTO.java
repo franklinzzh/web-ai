@@ -1,4 +1,4 @@
-package com.franklin.dto;
+package com.franklin.dto.emp;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;

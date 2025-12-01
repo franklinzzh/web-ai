@@ -1,9 +1,9 @@
 package com.franklin.service.impl;
 
-import com.franklin.dto.ClazzCreateDTO;
-import com.franklin.dto.ClazzDTO;
-import com.franklin.dto.ClazzQueryParamDTO;
-import com.franklin.dto.ClazzUpdateDTO;
+import com.franklin.dto.clazz.ClazzCreateDTO;
+import com.franklin.dto.clazz.ClazzDTO;
+import com.franklin.dto.clazz.ClazzQueryParamDTO;
+import com.franklin.dto.clazz.ClazzUpdateDTO;
 import com.franklin.entity.PageResult;
 import com.franklin.exception.BusinessException;
 import com.franklin.mapper.ClazzMapper;

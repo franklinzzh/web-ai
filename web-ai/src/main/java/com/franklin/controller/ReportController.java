@@ -1,9 +1,9 @@
 package com.franklin.controller;
 
-import com.franklin.dto.GenderOptionDTO;
-import com.franklin.dto.JobOptionDTO;
-import com.franklin.dto.StudentCountDTO;
-import com.franklin.dto.StudentDegreeDTO;
+import com.franklin.dto.report.GenderOptionDTO;
+import com.franklin.dto.report.JobOptionDTO;
+import com.franklin.dto.report.StudentCountDTO;
+import com.franklin.dto.report.StudentDegreeDTO;
 import com.franklin.service.ReportService;
 import com.franklin.util.Result;
 import lombok.RequiredArgsConstructor;

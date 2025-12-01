@@ -1,4 +1,4 @@
-package com.franklin.dto;
+package com.franklin.dto.student;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;

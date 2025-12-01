@@ -15,6 +15,7 @@ const search = async () => {
     tableData.value = response.data;
   } catch (error) {
     console.error('Error fetching department data:', error);
+    ElMessage.error('Failed to fetch department data');
   }
 };  
 const tableData = ref([]);
@@ -53,7 +54,7 @@ const save = async () => {
         // create new dept
         result = await createtApi(dept.value);
       }
-      if (result.code == 200) {
+      if (result.code === 200) {
         console.log('Department added successfully');
         //1. remind message
         ElMessage.success('Congrats, a department is added successfully!');
@@ -75,7 +76,7 @@ const edit = async (id) => {
   formTitle.value = 'Edit Department';
   // to be implemented
   const res = await fetchByIdApi(id);
-  if(res.code == 200) {
+  if(res.code === 200) {
     dialogFormVisible.value = true;
     dept.value = res.data;
     // clear previous validation messages
@@ -97,7 +98,7 @@ const deleteById = async (id) => {
   ).then(async () => {
     try {
       const res = await deleteByIdApi(id);
-      if(res.code == 200) {
+      if(res.code === 200) {
         ElMessage.success('Department deleted successfully');
         search();
       } else {

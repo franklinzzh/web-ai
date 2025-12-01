@@ -1,13 +1,11 @@
 package com.franklin.service;
 
-import com.franklin.dto.StudentCreateDTO;
-import com.franklin.dto.StudentQueryParamDTO;
-import com.franklin.dto.StudentUpdateDTO;
+import com.franklin.dto.student.StudentCreateDTO;
+import com.franklin.dto.student.StudentQueryParamDTO;
+import com.franklin.dto.student.StudentUpdateDTO;
 import com.franklin.entity.PageResult;
 import com.franklin.entity.Student;
 import jakarta.validation.Valid;
-
-import java.util.List;
 
 /**
  * @Auther: franklin

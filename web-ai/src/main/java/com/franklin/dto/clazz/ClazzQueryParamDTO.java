@@ -1,6 +1,5 @@
-package com.franklin.dto;
+package com.franklin.dto.clazz;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 

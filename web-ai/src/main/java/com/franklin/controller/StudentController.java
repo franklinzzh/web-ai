@@ -1,9 +1,9 @@
 package com.franklin.controller;
 
 import com.franklin.annotation.LogOperation;
-import com.franklin.dto.StudentCreateDTO;
-import com.franklin.dto.StudentQueryParamDTO;
-import com.franklin.dto.StudentUpdateDTO;
+import com.franklin.dto.student.StudentCreateDTO;
+import com.franklin.dto.student.StudentQueryParamDTO;
+import com.franklin.dto.student.StudentUpdateDTO;
 import com.franklin.entity.PageResult;
 import com.franklin.entity.Student;
 import com.franklin.service.StudentService;
@@ -12,8 +12,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @Auther: franklin

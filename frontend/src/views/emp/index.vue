@@ -1,10 +1,9 @@
 <script setup>
 import { ref, reactive, watch, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { fetchListApi, createApi, fetchByIdApi, updateApi } from '@/api/emp'
+import { fetchListApi, createApi, fetchByIdApi, updateApi, deleteByIdApi } from '@/api/emp'
 import { fetchAllApi as fetchDeptsApi } from '@/api/dept'
-import { generateUrlApi } from '@/api/upload'
-import { ca, id } from 'element-plus/es/locales.mjs'
+import { generateUrlApi } from '@/api/file'
 
 //Job list
 const jobs = ref([{ name: '班主任', value: 1 },{ name: '讲师', value: 2 },{ name: '学工主管', value: 3 },{ name: '教研主管', value: 4 },{ name: '咨询师', value: 5 },{ name: '其他', value: 6 }])
@@ -35,34 +34,29 @@ watch(
 )
 // fetch department list for select options
 const fetchDepts = async () => {
-  try {
-    const res = await fetchDeptsApi() 
-    if (res.code === 200) {
-      depts.value = res.data
-      console.log('Department list:', depts.value)
-    } else {
-      console.error(res.message)
-    }
-  } catch (error) {
-    console.error('Error fetching departments:', error)
+  const res = await fetchDeptsApi() 
+  if (res.code === 200) {
+    depts.value = res.data
+    console.log('Department list:', depts.value)
+  } else {
+    console.error(res.message)
   }
 } 
 // search employees
 const search = async () => {
-  try {
-    const res = await fetchListApi({name: searchEmp.name,
-      gender: searchEmp.gender,
-      begin: searchEmp.begin,
-      end: searchEmp.end,
-      page: currentPage.value,
-      pageSize: pageSize.value
-    })
-    empList.value = res.data.rows
-    total.value = res.data.total
-  } catch (error) {
-    console.error('Error fetching employee data:', error)
-    ElMessage.error('Error fetching employee data')
+  const res = await fetchListApi({name: searchEmp.name,
+    gender: searchEmp.gender,
+    begin: searchEmp.begin,
+    end: searchEmp.end,
+    page: currentPage.value,
+    pageSize: pageSize.value
+  })
+  if (res.code !== 200) {
+    ElMessage.error(res.message)
+    return
   }
+  empList.value = res.data.rows
+  total.value = res.data.total
 }
 
 const clear = () => {
@@ -110,10 +104,12 @@ const employee = reactive({
   image: '',
   exprList: []
 })
+
 const avatarUrl = ref('')
 
 //File upload handlers
 const beforeAvatarUpload = (rawFile) => {
+  console.log('Start before', performance.now())
   if (rawFile.type !== 'image/jpeg' && rawFile.type !== 'image/png') {
     ElMessage.error('Only JPG/PNG images are allowed')
     return false
@@ -121,20 +117,24 @@ const beforeAvatarUpload = (rawFile) => {
     ElMessage.error('Only images smaller than 10MB are allowed')
     return false
   }
+  console.log('End before', performance.now())
   return true
 }
 
+const handleSelect = (file) => {
+  console.log('Instant preview time:', performance.now());
+  avatarUrl.value = URL.createObjectURL(file.raw);
+}
+
 const handleAvatarSuccess = async (response,uploadFile) => {
-  // Instant preview of local image
-  avatarUrl.value = URL.createObjectURL(uploadFile.raw)
+  console.log('Start success', performance.now())
   // set up image file path on OSS
   employee.image = response.data
   // generate presigned URL for current avatar
   const res = await generateUrlApi({ path: response.data, expire: 60 })
-  setTimeout(() => {
-    avatarUrl.value = res.data
-  }, 1000) // delay to ensure upload is completed
+  avatarUrl.value = res.data
   ElMessage.success('Avatar uploaded successfully')
+  console.log('End success', performance.now())
 }
 
 const handleAvatarError = (err,uploadFile) => {
@@ -170,10 +170,15 @@ const add = () => {
     image: '',
     exprList: []
   })
+  // reset avatarUrl
+  avatarUrl.value = ''
+  // clear previous validation messages
   if(employeeFormRef.value){
       employeeFormRef.value.resetFields()
   }
 }
+
+const selectedIds = ref([]);
 
 //Form check rules
 const rules = ref({
@@ -217,25 +222,20 @@ watch(()=>employee.exprList, (newValue, oldValue) => {
 const save = async () => {
   employeeFormRef.value.validate(async valid => {
     if(valid){ // 校验通过
-      try {
-        let res
-        if (employee.id !== null) {
-          // update existing employee
-          res = await updateApi(employee)
-        } else {
-          // create new employee
-          res = await createApi(employee)
-        }
-        if (res.code === 200) {
-          ElMessage.success('Employee created successfully')
-          dialogVisible.value = false
-          search() // refresh table
-        } else {
-          ElMessage.error(res.message)
-        }
-      } catch (error) {
-        console.error('Error creating employee:', error)
-        ElMessage.error('Error creating employee')
+      let res
+      if (employee.id !== null) {
+        // update existing employee
+        res = await updateApi(employee)
+      } else {
+        // create new employee
+        res = await createApi(employee)
+      }
+      if (res.code === 200) {
+        ElMessage.success('Employee saved successfully')
+        dialogVisible.value = false
+        search() // refresh table
+      } else {
+        ElMessage.error(res.message)
       }
     } else {
       console.log('Form validation failed')
@@ -246,27 +246,22 @@ const save = async () => {
 const edit = async (id) => {
   console.log('Edit employee - to be implemented:', id)
   const res = await fetchByIdApi(id)
-  try {
-    if (res.code === 200) {
-      dialogVisible.value = true; // open dialog
-      dialogTitle.value = 'Edit Employee';
-      Object.assign(employee, res.data)
-      
-      // update exprList
-      let exprList = employee.exprList
-      if (exprList && exprList.length > 0) {
-        exprList.forEach(expr => {
-          expr.exprDate = [expr.begin, expr.end]
-        })
-        employee.exprList = exprList
-      }
-
-    } else {
-      ElMessage.error(res.message)
+  if (res.code === 200) {
+    dialogVisible.value = true; // open dialog
+    dialogTitle.value = 'Edit Employee';
+    Object.assign(employee, res.data)
+    
+    // update exprList
+    let exprList = employee.exprList
+    if (exprList && exprList.length > 0) {
+      exprList.forEach(expr => {
+        expr.exprDate = [expr.begin, expr.end]
+      })
+      employee.exprList = exprList
     }
-  } catch (error) {
-    console.error('Error fetching employee by id:', error)
-    ElMessage.error('Error fetching employee by id')
+
+  } else {
+    ElMessage.error(res.message)
   }
 }
 
@@ -277,20 +272,45 @@ const deleteById = async (id) => {
     'Warning',
     {confirmButtonText: 'OK', cancelButtonText: 'Cancel', type: 'warning',}
   ).then(async () => {
-    try {
-      const res = await deleteByIdApi(id)
-      if (res.code === 200) {
-        ElMessage.success('Employee deleted successfully')
-        search()
-      } else {
-        ElMessage.error(res.message)
-      }
-    } catch (error) {
-      console.error('Error deleting employee by id:', error)
-      ElMessage.error('Error deleting employee by id')
+    const res = await deleteByIdApi(id)
+    if (res.code === 200) {
+      ElMessage.success('Employee deleted successfully')
+      search()
+    } else {
+      ElMessage.error(res.message)
     }
   }).catch (() => {
     // cancel
+    ElMessage.info('Delete cancelled')
+  })
+}
+
+// get ids of selected rows
+const handleSelectionChange = (rows) => {
+  selectedIds.value = rows.map(row => row.id)
+  console.log('Selected IDs:', selectedIds.value)
+};
+
+const deleteByIds = async () => {
+  if (selectedIds.value.length === 0) {
+    ElMessage.warning('Please select at least one employee to delete')
+    return
+  }
+  ElMessageBox.confirm(
+    'All departments selected will be deleted. Continue?',
+    'Warning',
+    {confirmButtonText: 'OK', cancelButtonText: 'Cancel', type: 'warning',}
+  ).then(async () => {
+    const res = await deleteByIdApi(selectedIds.value.join(','))
+    if (res.code === 200) {
+      ElMessage.success('Employee deleted successfully')
+      search()
+    } else {
+      ElMessage.error(res.message)
+    }
+  }).catch (() => {
+    // cancel
+    ElMessage.info('Delete cancelled')
   })
 }
 
@@ -348,11 +368,11 @@ onMounted(() => {
       <el-button type="primary" @click="add">Add Employees</el-button>
     </div>
     <div class="container">
-      <el-button type="danger" @click="">Remove Employees</el-button>
+      <el-button type="danger" @click="deleteByIds">Remove Employees</el-button>
     </div>
   </div>
   <div class="container">
-    <el-table :data="empList" border style="width: 100%">
+    <el-table :data="empList" border style="width: 100%" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column prop="name" label="Name" width="120" align="center"/>
       <el-table-column prop="gender" label="Gender" width="75" align="center">
@@ -469,8 +489,10 @@ onMounted(() => {
             <el-upload
               class="avatar-uploader"
               action="/api/upload/avatar"
+              :data="{ username: employee.username }"
               :show-file-list="false"
               :before-upload="beforeAvatarUpload"
+              :on-change="handleSelect"
               :on-success="handleAvatarSuccess"
               :on-error="handleAvatarError"
               >
@@ -550,13 +572,16 @@ onMounted(() => {
   object-fit: cover;
 }
 
+
+
 .avatar-uploader .avatar {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   display: block;
 }
 
 /* avatar upload */
+
 .avatar-uploader .el-upload {
   border: 1px dashed var(--el-border-color);
   border-radius: 6px;
@@ -573,8 +598,8 @@ onMounted(() => {
 .el-icon.avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
-  width: 178px;
-  height: 178px;
+  width: 150px;
+  height: 150px;
   text-align: center;
 }
 </style>

@@ -1,6 +1,8 @@
 package com.franklin.service;
 
-import com.franklin.dto.*;
+import com.franklin.dto.emp.EmpCreateDTO;
+import com.franklin.dto.emp.EmpDto;
+import com.franklin.dto.emp.EmpQueryParam;
 import com.franklin.entity.Emp;
 import com.franklin.entity.PageResult;
 import com.franklin.util.Result;
@@ -60,5 +62,5 @@ public interface EmpService {
      */
     boolean existsByDeptId(Integer deptId);
 
-    LoginResponseDTO login(LoginRequestDTO requestDTO);
+//    LoginResponseDTO login(LoginRequestDTO requestDTO);
 }
