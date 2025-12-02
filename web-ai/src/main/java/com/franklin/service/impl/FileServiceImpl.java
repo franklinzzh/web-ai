@@ -6,7 +6,6 @@ import com.franklin.exception.BusinessException;
 import com.franklin.mapper.FileMapper;
 import com.franklin.service.AliyunOSSService;
 import com.franklin.service.FileService;
-import com.franklin.util.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

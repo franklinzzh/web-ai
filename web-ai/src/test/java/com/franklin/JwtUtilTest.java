@@ -1,7 +1,6 @@
 package com.franklin;
 
-import com.franklin.util.JwtUtil;
-import io.jsonwebtoken.Claims;
+import com.franklin.utils.JwtUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

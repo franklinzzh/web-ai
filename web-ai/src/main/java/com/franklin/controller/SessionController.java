@@ -1,6 +1,6 @@
 package com.franklin.controller;
 
-import com.franklin.util.Result;
+import com.franklin.utils.Result;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

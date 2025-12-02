@@ -5,7 +5,7 @@ import com.franklin.dto.LoginResponseDTO;
 import com.franklin.exception.BusinessException;
 import com.franklin.mapper.LoginMapper;
 import com.franklin.service.LoginService;
-import com.franklin.util.JwtUtil;
+import com.franklin.utils.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

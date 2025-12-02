@@ -7,7 +7,7 @@ import com.franklin.dto.student.StudentUpdateDTO;
 import com.franklin.entity.PageResult;
 import com.franklin.entity.Student;
 import com.franklin.service.StudentService;
-import com.franklin.util.Result;
+import com.franklin.utils.Result;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

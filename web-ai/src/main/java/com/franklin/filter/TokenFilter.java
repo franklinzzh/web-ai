@@ -1,6 +1,6 @@
 package com.franklin.filter;
 
-import com.franklin.util.JwtUtil;
+import com.franklin.utils.JwtUtil;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ import java.io.IOException;
  * @Description: Token Validation Filter
  */
 @Slf4j
-@WebFilter(urlPatterns = "/*")
+//@WebFilter(urlPatterns = "/*")
 public class TokenFilter implements Filter {
 
     @Override

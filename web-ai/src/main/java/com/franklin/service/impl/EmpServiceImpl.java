@@ -11,7 +11,7 @@ import com.franklin.mapper.EmpExprMapper;
 import com.franklin.mapper.EmpMapper;
 import com.franklin.service.EmpService;
 import com.franklin.service.LoginService;
-import com.franklin.util.Result;
+import com.franklin.utils.Result;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;

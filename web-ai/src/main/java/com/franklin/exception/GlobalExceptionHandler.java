@@ -1,6 +1,6 @@
 package com.franklin.exception;
 
-import com.franklin.util.Result;
+import com.franklin.utils.Result;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

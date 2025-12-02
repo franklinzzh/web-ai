@@ -7,7 +7,7 @@ import com.aliyun.oss.model.PutObjectResult;
 import com.franklin.dto.upload.PresignUrlDTO;
 import com.franklin.exception.BusinessException;
 import com.franklin.service.AliyunOSSService;
-import com.franklin.util.AliyunOSSProperties;
+import com.franklin.utils.AliyunOSSProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

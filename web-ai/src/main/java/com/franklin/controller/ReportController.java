@@ -5,7 +5,7 @@ import com.franklin.dto.report.JobOptionDTO;
 import com.franklin.dto.report.StudentCountDTO;
 import com.franklin.dto.report.StudentDegreeDTO;
 import com.franklin.service.ReportService;
-import com.franklin.util.Result;
+import com.franklin.utils.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -2,8 +2,8 @@ package com.franklin.controller;
 
 import com.franklin.annotation.LogOperation;
 import com.franklin.dto.DeptDTO;
-import com.franklin.util.Result;
-import com.franklin.entity.Dept;
+import com.franklin.exception.BusinessException;
+import com.franklin.utils.Result;
 import com.franklin.service.DeptService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +47,9 @@ public class DeptController {
     @LogOperation
     @DeleteMapping
     public Result delete(@RequestParam("id") Integer id) {
-        if (id == null) {
-            return Result.error("非法id");
+        if (id < 0) {
+            System.out.println("error          %%%%%%%%%%%%%%%%%%");
+            throw new BusinessException("非法id");
         }
 
         deptService.delete(id);

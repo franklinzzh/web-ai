@@ -7,7 +7,7 @@ import com.franklin.dto.clazz.ClazzQueryParamDTO;
 import com.franklin.dto.clazz.ClazzUpdateDTO;
 import com.franklin.entity.PageResult;
 import com.franklin.service.ClazzService;
-import com.franklin.util.Result;
+import com.franklin.utils.Result;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

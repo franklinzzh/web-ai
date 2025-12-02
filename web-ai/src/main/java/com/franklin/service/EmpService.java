@@ -5,7 +5,7 @@ import com.franklin.dto.emp.EmpDto;
 import com.franklin.dto.emp.EmpQueryParam;
 import com.franklin.entity.Emp;
 import com.franklin.entity.PageResult;
-import com.franklin.util.Result;
+import com.franklin.utils.Result;
 
 import java.util.List;
 

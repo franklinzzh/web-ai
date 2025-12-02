@@ -4,7 +4,7 @@ import com.franklin.dto.LoginRequestDTO;
 import com.franklin.dto.LoginResponseDTO;
 import com.franklin.service.EmpService;
 import com.franklin.service.LoginService;
-import com.franklin.util.Result;
+import com.franklin.utils.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;

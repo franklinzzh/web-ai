@@ -4,16 +4,13 @@ import com.aliyuncs.exceptions.ClientException;
 import com.franklin.dto.upload.PresignUrlDTO;
 import com.franklin.service.AliyunOSSService;
 import com.franklin.service.FileService;
-import com.franklin.util.Result;
+import com.franklin.utils.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.UUID;
 
 /**
  * @Auther: franklin
