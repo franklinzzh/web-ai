@@ -14,6 +14,12 @@ hs_err_pid*
 replay_pid*
 
 #################################
+###      Database outputs     ###
+#################################
+
+database-dumps/
+
+#################################
 ###   Frontend (Vue + Vite)   ###
 #################################
 frontend/node_modules/

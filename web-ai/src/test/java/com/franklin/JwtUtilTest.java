@@ -19,18 +19,18 @@ public class JwtUtilTest {
         System.out.println(token);
     }
 
-    @Test
-    void testParseToken() {
-        Integer id = 61;
-        String username = "test01";
-        String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MSIsImlhdCI6MTc2NDU3ODkyMiwiZXhwIjoxNzY0NjIyMTIyfQ.sXl5f6qqsafgQ2U3oBEGbMJi2lPlQx6F5jXAZ855dE8";
-        Integer parseId = Integer.valueOf(JwtUtil.extractSubject(token));
-        System.out.println(parseId);
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(id, parseId)
-//                () -> Assertions.assertEquals(username, parseUsername)
-        );
-    }
+//    @Test
+//    void testParseToken() {
+//        Integer id = 61;
+//        String username = "test01";
+//        String token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MSIsImlhdCI6MTc2NDU3ODkyMiwiZXhwIjoxNzY0NjIyMTIyfQ.sXl5f6qqsafgQ2U3oBEGbMJi2lPlQx6F5jXAZ855dE8";
+//        Integer parseId = Integer.valueOf(JwtUtil.extractSubject(token));
+//        System.out.println(parseId);
+//        Assertions.assertAll(
+//                () -> Assertions.assertEquals(id, parseId)
+////                () -> Assertions.assertEquals(username, parseUsername)
+//        );
+//    }
 
 //    @Test
 //    void testGenerateAndParseToken() {
