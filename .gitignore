@@ -104,3 +104,7 @@ build/
 
 # User-specific
 *.local
+
+
+# Docker
+deploy/docker/.env
