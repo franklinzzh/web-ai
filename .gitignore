@@ -1,9 +1,12 @@
 #################################
 ###     Java / Maven Build    ###
 #################################
-
+.idea/
+app-backend/.idea/
 # Maven target folder
+
 target/
+app-backend/target/
 out/
 
 # Compiled class files
@@ -22,9 +25,9 @@ database-dumps/
 #################################
 ###   Frontend (Vue + Vite)   ###
 #################################
-frontend/node_modules/
-frontend/dist/
-frontend/.vite/
+app-frontend/node_modules/
+app-frontend/dist/
+app-frontend/.vite/
 #################################
 ###        IntelliJ IDEA      ###
 #################################
