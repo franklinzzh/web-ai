@@ -1,5 +1,8 @@
 FROM eclipse-temurin:21-jre
 
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+
 RUN mkdir -p /app
 WORKDIR /app
 
