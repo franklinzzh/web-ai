@@ -1,110 +1,28 @@
-#################################
-###     Java / Maven Build    ###
-#################################
-.idea/
-app-backend/.idea/
-# Maven target folder
-
-target/
-app-backend/target/
-out/
-
-# Compiled class files
-*.class
-
-# JVM crash logs
-hs_err_pid*
-replay_pid*
-
-#################################
-###      Database outputs     ###
-#################################
-
-database-dumps/
-
-#################################
-###   Frontend (Vue + Vite)   ###
-#################################
-app-frontend/node_modules/
-app-frontend/dist/
-app-frontend/.vite/
-#################################
-###        IntelliJ IDEA      ###
-#################################
-
-.idea/
-*.iml
-*.ipr
-*.iws
-
-# JetBrains-specific
-.idea_modules/
-
-#################################
-###        VS Code (Optional)  ###
-#################################
-
-.vscode/
-
-#################################
-###       Spring Boot logs     ###
-#################################
-
-*.log
-logs/
-*.pid
-
-#################################
-###      System / OS files     ###
-#################################
-
-# macOS
+# macOS system files
 .DS_Store
 
-# Windows
-Thumbs.db
+# IDE / editor files
+*.iml
+*.idea/
+*.vscode/
+target/
 
-#################################
-###         Maven Wrapper      ###
-#################################
+# Logs
+*.log
 
-mybatis_demo/.mvn/
-!mvnw
-!mvnw.cmd
+# Temporary or dump files
+database-dumps/
+deploy/mysql/init/
+tmp/
+*.tmp
 
-#################################
-###         Gradle (Optional)  ###
-#################################
+# Backend
+app-backend/.idea/
+app-backend/target/
 
-.gradle/
-build/
+# Frontend
+app-frontend/dist/
+app-frontend/node_modules/
 
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-#################################
-###      Packaging outputs     ###
-#################################
-
-*.jar
-*.war
-*.zip
-*.tar
-*.gz
-
-#################################
-###      Others (Optional)     ###
-#################################
-
-# IDE auto-generated files
-.project
-.classpath
-.settings/
-.factorypath
-
-# User-specific
-*.local
-
-
-# Docker
-deploy/docker/.env
+# Environment / secret files
+deploy/docker/*.env

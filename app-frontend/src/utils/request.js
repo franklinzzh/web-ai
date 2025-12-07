@@ -28,14 +28,18 @@ request.interceptors.response.use(
     return response.data
   },
   (error) => { //失败回调
-     //如果响应的状态码为401, 则路由到登录页面
-    if (error.response.status === 401 && !isShowing401Message) {
-      isShowing401Message = true
-      ElMessage.error('登录失效, 请重新登录')
-      router.push('/login')
-      setTimeout(() => isShowing401Message = false, 1000);
-    }else{
-      ElMessage.success('接口访问异常')
+    if (error.response) {
+      //如果响应的状态码为401, 则路由到登录页面
+      if (error.response.status === 401 && !isShowing401Message) {
+        isShowing401Message = true
+        ElMessage.error('Sign in expired, please sign in again.')
+        router.push('/login')
+        setTimeout(() => isShowing401Message = false, 1000);
+      }else{
+        ElMessage.error('API request error.')
+      }
+    } else {
+      ElMessage.error('Server not responding or network error.')
     }
     return Promise.reject(error)
   }

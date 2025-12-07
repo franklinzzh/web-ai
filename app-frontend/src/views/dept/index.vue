@@ -8,15 +8,10 @@ onMounted(() => {
 });
 
 const search = async () => {
-  try {
-    const response = await fetchAllApi();
-    console.log('Start fetchAllApi');
-    console.log('Department data:', response.data);
-    tableData.value = response.data;
-  } catch (error) {
-    console.error('Error fetching department data:', error);
-    ElMessage.error('Failed to fetch department data');
-  }
+  const response = await fetchAllApi();
+  console.log('Start fetchAllApi');
+  console.log('Department data:', response.data);
+  tableData.value = response.data;
 };  
 const tableData = ref([]);
 
@@ -48,12 +43,12 @@ const save = async () => {
       if(valid) {
         let result;
         if(dept.value.id) {
-        // update existing dept
-        result = await updateApi(dept.value);
-      } else {
-        // create new dept
-        result = await createtApi(dept.value);
-      }
+          // update existing dept
+          result = await updateApi(dept.value);
+        } else {
+          // create new dept
+          result = await createtApi(dept.value);
+        }
       if (result.code === 200) {
         console.log('Department added successfully');
         //1. remind message
@@ -62,8 +57,6 @@ const save = async () => {
         dialogFormVisible.value = false;
         //3. refresh table data
         search(); 
-        } else {
-        ElMessage.error(result.message);
       }
     } else {
       ElMessage.error('Form input is invalid')
