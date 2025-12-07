@@ -6,6 +6,7 @@
 *.idea/
 *.vscode/
 target/
+target/*
 
 # Logs
 *.log
