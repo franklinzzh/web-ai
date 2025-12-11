@@ -1,0 +1,15 @@
+# frontend
+app-frontend/node_modules
+app-frontend/dist
+
+# backend
+app-backend/target
+
+# deployment
+deploy/mysql/init
+deploy/docker/*.env
+
+# general
+.git
+.gitignore
+*.log

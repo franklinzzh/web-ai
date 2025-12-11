@@ -23,6 +23,10 @@ public class TokenInterceptor implements HandlerInterceptor {
         //1. 获取请求url。
         String url = request.getRequestURL().toString();
 
+        /**
+         * Question: why comment this?
+         * Reason: In WebConfig.java, it already sets up excludePath
+         */
 //        //2. allow login url
 //        if (url.contains("login")) {
 //            log.info("Login request, allowed");
@@ -48,13 +52,22 @@ public class TokenInterceptor implements HandlerInterceptor {
 
         log.info("verified token, allowed");
         Integer id = Integer.valueOf(JwtUtil.extractSubject(token));
+
+        //6. set up current user id in threadlocal
         CurrentHolder.setCurrentId(id);
+        System.out.println("Interceptor CH: "+ CurrentHolder.getCurrentId());
         return true;
     }
 
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        System.out.println("afterCompletion .... ");
-        CurrentHolder.remove();
-    }
+    /**
+     * Removing data store in ThreadLocal, Filter is a better choice
+     * In Interceptor, afterCompletion does not mean the end of current thread,
+     *                 like throwing an error may not finish yet.
+     * While in Filter, it is the last step to finish it in backend.
+     */
+//    @Override
+//    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+//        System.out.println("afterCompletion .... ");
+//        CurrentHolder.remove();
+//    }
 }

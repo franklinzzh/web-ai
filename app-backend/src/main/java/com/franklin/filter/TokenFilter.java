@@ -1,5 +1,6 @@
 package com.franklin.filter;
 
+import com.franklin.utils.CurrentHolder;
 import com.franklin.utils.JwtUtil;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
@@ -17,38 +18,51 @@ import java.io.IOException;
  * @Description: Token Validation Filter
  */
 @Slf4j
-//@WebFilter(urlPatterns = "/*")
+@WebFilter(urlPatterns = "/*")
 public class TokenFilter implements Filter {
 
+//    @Override
+//    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+//        HttpServletRequest request = (HttpServletRequest) req;
+//        HttpServletResponse response = (HttpServletResponse) res;
+//        //1. 获取请求url。
+//        String url = request.getRequestURL().toString();
+//        //2. 判断请求url中是否包含login，如果包含，说明是登录操作，放行。
+//        if(url.contains("login")){ //登录请求
+//            log.info("登录请求 , 直接放行");
+//            chain.doFilter(request, response);
+//            return;
+//        }
+//        //3. 获取请求头中的令牌（token）。
+//        String jwt = request.getHeader("token");
+//        //4. 判断令牌是否存在，如果不存在，返回错误结果（未登录）。
+//        if(!StringUtils.hasLength(jwt)){ //jwt为空
+//            log.info("获取到jwt令牌为空, 返回错误结果");
+//            response.setStatus(HttpStatus.SC_UNAUTHORIZED);
+//            return;
+//        }
+//        //5. 解析token，如果解析失败，返回错误结果（未登录）。
+//        if (!JwtUtil.validateToken(jwt)) {
+//            log.info("解析令牌失败, 返回错误结果");
+//            response.setStatus(HttpStatus.SC_UNAUTHORIZED);
+//            return;
+//        }
+//        //6. 放行。
+//        log.info("令牌合法, 放行");
+//        chain.doFilter(request , response);
+//    }
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
-        //1. 获取请求url。
-        String url = request.getRequestURL().toString();
-        //2. 判断请求url中是否包含login，如果包含，说明是登录操作，放行。
-        if(url.contains("login")){ //登录请求
-            log.info("登录请求 , 直接放行");
-            chain.doFilter(request, response);
-            return;
+        try {
+            chain.doFilter(request , response);
+        } finally {
+            // clear ThreadLocal data
+            System.out.println("Current holder data: " + CurrentHolder.getCurrentId());
+            CurrentHolder.remove();
+            System.out.println("Current Holder stored data has been removed.");
         }
-        //3. 获取请求头中的令牌（token）。
-        String jwt = request.getHeader("token");
-        //4. 判断令牌是否存在，如果不存在，返回错误结果（未登录）。
-        if(!StringUtils.hasLength(jwt)){ //jwt为空
-            log.info("获取到jwt令牌为空, 返回错误结果");
-            response.setStatus(HttpStatus.SC_UNAUTHORIZED);
-            return;
-        }
-        //5. 解析token，如果解析失败，返回错误结果（未登录）。
-        if (!JwtUtil.validateToken(jwt)) {
-            log.info("解析令牌失败, 返回错误结果");
-            response.setStatus(HttpStatus.SC_UNAUTHORIZED);
-            return;
-        }
-        //6. 放行。
-        log.info("令牌合法, 放行");
-        chain.doFilter(request , response);
     }
 
 }
