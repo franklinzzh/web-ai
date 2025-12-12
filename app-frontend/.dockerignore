@@ -1,0 +1,10 @@
+# frontend
+app-frontend/node_modules
+app-frontend/dist
+
+# general
+.git
+.gitignore
+*.log
+npm-debug.log*
+.DS_Store
