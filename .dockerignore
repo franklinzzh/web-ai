@@ -1,9 +1,9 @@
 # frontend
 app-frontend/node_modules
-app-frontend/dist
+# app-frontend/dist
 
 # backend
-app-backend/target
+# app-backend/target
 
 # deployment
 deploy/mysql/init

@@ -15,6 +15,8 @@ import UserProfileView from '@/views/user/userProfile/index.vue';
 
 import LayoutView from '@/views/layout/index.vue'
 
+import NotFoundView from '@/views/notfoundpage/not-found-view.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -40,7 +42,10 @@ const router = createRouter({
     // login page
     {path: '/login', name: 'login', component: LoginView  },
     // user profile
-    {path: '/user/:username', name: 'userProfile', component: UserProfileView  }
+    {path: '/user/:username', name: 'userProfile', component: UserProfileView  },
+
+    // Catch-all route
+    { path: '/:pathMatch(.*)*', name: 'notFound', component: NotFoundView, redirect: '/index' }
   ]
 })
 
