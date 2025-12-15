@@ -5,7 +5,7 @@ import router from '../router'
 // create axios object
 const request = axios.create({
   baseURL: '/api', // matches your Vite proxy
-  timeout: 5000
+  timeout: 10000
 })
 
 //axios的请求 request 拦截器, 每次请求获取localStorage中的loginUser, 从中获取到token, 在请求头token中携带到服务端

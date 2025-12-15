@@ -1,8 +1,11 @@
 spring:
   # 数据库连接信息
   datasource:
-    url: jdbc:mysql://34.80.101.122:3306/web-app1?useSSL=true&serverTimezone=Asia/Shanghai
+#    url: jdbc:mysql://localhost:3306/tlias?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://34.80.101.122:3306/web_app1?useSSL=true&serverTimezone=Asia/Shanghai
+#    url: jdbc:mysql:///web_app1?cloudSqlInstance=franklin-product-web-app-1:asia-east1:mysql8-web-database&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
+#    password: password
     password: franklinproduct1DB!
     driver-class-name: com.mysql.cj.jdbc.Driver
 
