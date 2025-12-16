@@ -20,9 +20,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //注册自定义拦截器对象
-        registry.addInterceptor(tokenInterceptor)
-                .addPathPatterns("/**")//设置拦截器拦截的请求路径（ /** 表示拦截所有请求）
-                .excludePathPatterns("/login");//login路径不拦截
+//        registry.addInterceptor(tokenInterceptor)
+//                .addPathPatterns("/**")//设置拦截器拦截的请求路径（ /** 表示拦截所有请求）
+//                .excludePathPatterns("/login");//login路径不拦截
     }
 
 
